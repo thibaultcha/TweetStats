@@ -1,0 +1,38 @@
+{
+	"brand": "RATP",
+	"adjective": "chiant",
+	"fetches":[
+		{
+			"date": "2013-08-23 12:34 UTC",
+			"last_id": "87657879869",
+			"results": [
+				{
+					"tweet_id": "65347654786",
+					"tweet_date": "2013-08-22 12:34 UTC",
+					"tweet_msg": "Ce matin la RATP c'est encore chiant"
+				},
+				{
+					"tweet_id": "87657879869",
+					"tweet_date": "2013-08-22 14:34 UTC",
+					"tweet_msg": "La RATP... Trop chiant."
+				}
+			]
+		},
+		{
+			"date": "2013-09-23 00:00 UTC",
+			"last_id": "9809898798798",
+			"results": [
+				{
+					"tweet_id": "9098987976876",
+					"tweet_date": "2013-08-22 12:34 UTC",
+					"tweet_msg": "Oh la #RATP trop chiant"
+				},
+				{
+					"tweet_id": "9809898798798",
+					"tweet_date": "2013-08-22 14:34 UTC",
+					"tweet_msg": "Chiant la #RATP"
+				}
+			]
+		}
+	]
+}
