@@ -82,6 +82,7 @@ public interface Fetch extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Results</b></em>' reference list.
 	 * The list contents are of type {@link tweetstats.Tweet}.
+	 * It is bidirectional and its opposite is '{@link tweetstats.Tweet#getFetch <em>Fetch</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Results</em>' reference list isn't clear,
@@ -90,7 +91,8 @@ public interface Fetch extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Results</em>' reference list.
 	 * @see tweetstats.TweetstatsPackage#getFetch_Results()
-	 * @model required="true"
+	 * @see tweetstats.Tweet#getFetch
+	 * @model opposite="fetch" required="true"
 	 * @generated
 	 */
 	EList<Tweet> getResults();

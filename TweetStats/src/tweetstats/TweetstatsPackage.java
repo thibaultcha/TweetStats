@@ -94,13 +94,22 @@ public interface TweetstatsPackage extends EPackage {
 	int TWEET__ID = 2;
 
 	/**
+	 * The feature id for the '<em><b>Fetch</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TWEET__FETCH = 3;
+
+	/**
 	 * The number of structural features of the '<em>Tweet</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TWEET_FEATURE_COUNT = 3;
+	int TWEET_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Tweet</em>' class.
@@ -211,6 +220,17 @@ public interface TweetstatsPackage extends EPackage {
 	EAttribute getTweet_Id();
 
 	/**
+	 * Returns the meta object for the reference '{@link tweetstats.Tweet#getFetch <em>Fetch</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Fetch</em>'.
+	 * @see tweetstats.Tweet#getFetch()
+	 * @see #getTweet()
+	 * @generated
+	 */
+	EReference getTweet_Fetch();
+
+	/**
 	 * Returns the meta object for class '{@link tweetstats.Fetch <em>Fetch</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -309,6 +329,14 @@ public interface TweetstatsPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TWEET__ID = eINSTANCE.getTweet_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Fetch</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TWEET__FETCH = eINSTANCE.getTweet_Fetch();
 
 		/**
 		 * The meta object literal for the '{@link tweetstats.impl.FetchImpl <em>Fetch</em>}' class.

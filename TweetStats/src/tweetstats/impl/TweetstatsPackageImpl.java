@@ -137,6 +137,15 @@ public class TweetstatsPackageImpl extends EPackageImpl implements TweetstatsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getTweet_Fetch() {
+		return (EReference)tweetEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFetch() {
 		return fetchEClass;
 	}
@@ -200,6 +209,7 @@ public class TweetstatsPackageImpl extends EPackageImpl implements TweetstatsPac
 		createEAttribute(tweetEClass, TWEET__MESSAGE);
 		createEAttribute(tweetEClass, TWEET__DATE);
 		createEAttribute(tweetEClass, TWEET__ID);
+		createEReference(tweetEClass, TWEET__FETCH);
 
 		fetchEClass = createEClass(FETCH);
 		createEAttribute(fetchEClass, FETCH__DATE);
@@ -241,11 +251,12 @@ public class TweetstatsPackageImpl extends EPackageImpl implements TweetstatsPac
 		initEAttribute(getTweet_Message(), ecorePackage.getEString(), "message", null, 1, 1, Tweet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTweet_Date(), ecorePackage.getEDate(), "date", null, 1, 1, Tweet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTweet_Id(), ecorePackage.getELongObject(), "id", null, 1, 1, Tweet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTweet_Fetch(), this.getFetch(), this.getFetch_Results(), "fetch", null, 1, 1, Tweet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(fetchEClass, Fetch.class, "Fetch", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFetch_Date(), ecorePackage.getEDate(), "date", null, 1, 1, Fetch.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFetch_Last_id(), ecorePackage.getELongObject(), "last_id", null, 1, 1, Fetch.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFetch_Results(), this.getTweet(), null, "results", null, 1, -1, Fetch.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFetch_Results(), this.getTweet(), this.getTweet_Fetch(), "results", null, 1, -1, Fetch.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
