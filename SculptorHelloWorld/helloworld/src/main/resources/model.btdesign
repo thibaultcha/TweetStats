@@ -1,0 +1,30 @@
+Application TweetStats {
+	basePackage = fr.ece.tweetstats
+
+	Module core {
+		
+		Service FetchService {
+             protected fetchResults => FetchRepository.fetchResults;
+         }
+		
+		Entity Fetch {
+			scaffold
+			Date date
+			String brand
+			String adjective
+			Long lastId
+			- Set<Tweet> results
+			
+			Repository FetchRepository { 
+                List<@Tweet> fetchResults();
+            }
+		}
+
+		ValueObject Tweet {	
+			not aggregateRoot
+			Long tweetId
+			Date date
+			String message
+		}
+	}
+}
