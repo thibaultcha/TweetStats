@@ -37,14 +37,15 @@ public class TwitterAPI {
 	 */
 	public static List<Tweet> getByBrandAndAdjective(String brand, String adj, Long lastId) {
 		ArrayList<Tweet> tweetResults = new ArrayList<Tweet>();
-		QueryResult result = null;
-		String queryStr = brand + " " + adj;
-		if (lastId != null) {
-			queryStr += " sinceId="+lastId; 
-		}
+		QueryResult result = null;		
 			
 		try {
-			Query query = new Query(queryStr);
+			Query query = new Query(brand + " " + adj);
+			query.resultType("recent");
+			if (lastId != null) {
+				query.sinceId(lastId); 
+			}
+			
 			Twitter twitter = getTwitter();
 
 			do {
@@ -56,9 +57,11 @@ public class TwitterAPI {
 		}
 
 		for (Status status : result.getTweets()) {
-			tweetResults.add(new Tweet(status.getId(), status.getCreatedAt(),
+			tweetResults.add(new Tweet(new Long(status.getId()), status.getCreatedAt(),
 					status.getText()));
 		}
+		
+		// @TODO Sort tweets by date
 
 		return tweetResults;
 	}
@@ -88,6 +91,7 @@ public class TwitterAPI {
 			for (Tweet tweet : tweets) {
 				fetch.addResult(tweet);
 			}
+			fetch.setLastId(tweets.get(tweets.size()-1).getTweetId());
 
 			// add to our return array
 			fetches.add(fetch);
