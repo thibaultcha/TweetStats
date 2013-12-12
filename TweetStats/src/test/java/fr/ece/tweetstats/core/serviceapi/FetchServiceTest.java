@@ -1,6 +1,7 @@
 package fr.ece.tweetstats.core.serviceapi;
 
 import java.util.Date;
+import java.util.List;
 
 import fr.ece.tweetstats.core.domain.Fetch;
 import fr.ece.tweetstats.core.serviceapi.FetchService;
@@ -34,6 +35,15 @@ public class FetchServiceTest extends AbstractDbUnitJpaTests implements FetchSer
 	    
 	    Fetch saved = fetchService.save(SimpleJUnitServiceContextFactory.getServiceContext(), fetch);
 	    this.fetchId = saved.getId();
+	    
+	    Fetch fetch2 = new Fetch();
+	    fetch2.setBrand("Alloresto");
+	    fetch2.setAdjective("Retard");
+	    fetch2.setDate(new Date());
+	    fetch2.setLastId(new Long(1234));
+	    fetch2.setCreatedDate(new Date());
+	    
+	    fetchService.save(SimpleJUnitServiceContextFactory.getServiceContext(), fetch2);
 	}
 
 	@Test
@@ -44,8 +54,8 @@ public class FetchServiceTest extends AbstractDbUnitJpaTests implements FetchSer
 
 	@Override
 	public void testFindAll() throws Exception {
-		// TODO Auto-generated method stub
-		
+		List<Fetch> fetches = fetchService.findAll(SimpleJUnitServiceContextFactory.getServiceContext());
+		assertEquals(2, fetches.size());
 	}
 
 	@Override

@@ -5,7 +5,7 @@ Application TweetStats {
 		
 		Service FetchService {
              protected fetchResults => FetchRepository.fetchResults;
-         }
+        }
 		
 		Entity Fetch {
 			scaffold
