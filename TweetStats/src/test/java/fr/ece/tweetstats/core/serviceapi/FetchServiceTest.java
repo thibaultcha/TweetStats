@@ -52,7 +52,7 @@ public class FetchServiceTest extends AbstractDbUnitJpaTests implements FetchSer
 		assertEquals("RATP", found.getBrand());
 	}
 
-	@Override
+	@Test
 	public void testFindAll() throws Exception {
 		List<Fetch> fetches = fetchService.findAll(SimpleJUnitServiceContextFactory.getServiceContext());
 		assertEquals(2, fetches.size());
@@ -64,9 +64,12 @@ public class FetchServiceTest extends AbstractDbUnitJpaTests implements FetchSer
 		
 	}
 
-	@Override
+	@Test
 	public void testDelete() throws Exception {
-		// TODO Auto-generated method stub
+		Fetch found = fetchService.findById(SimpleJUnitServiceContextFactory.getServiceContext(), this.fetchId);
+		fetchService.delete(SimpleJUnitServiceContextFactory.getServiceContext(), found);
 		
+		List<Fetch> fetches = fetchService.findAll(SimpleJUnitServiceContextFactory.getServiceContext());
+		assertEquals(1, fetches.size());
 	}
 }
