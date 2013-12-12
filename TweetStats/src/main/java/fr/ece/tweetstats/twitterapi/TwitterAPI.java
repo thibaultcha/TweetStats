@@ -1,11 +1,11 @@
 package fr.ece.tweetstats.twitterapi;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import fr.ece.tweetstats.core.domain.Fetch;
 import fr.ece.tweetstats.core.domain.Tweet;
-
 import twitter4j.*;
 import twitter4j.auth.AccessToken;
 
@@ -28,7 +28,8 @@ public class TwitterAPI {
 			fetch.setBrand(brand);
 			Twitter twitter = getTwitter();
 
-			Query query = new Query(fetch.getBrand() + " " + fetch.getAdjective());
+			Query query = new Query(fetch.getBrand() + " "
+					+ fetch.getAdjective());
 			QueryResult result;
 			do {
 
@@ -36,7 +37,8 @@ public class TwitterAPI {
 				List<Status> tweets = result.getTweets();
 
 				for (Status tweet : tweets) {
-					Tweet tw = new Tweet(tweet.getId(), tweet.getCreatedAt(),tweet.getText());
+					Tweet tw = new Tweet(tweet.getId(), tweet.getCreatedAt(),
+							tweet.getText());
 					fetch.addResult(tw);
 				}
 			} while ((query = result.nextQuery()) != null);
@@ -45,6 +47,16 @@ public class TwitterAPI {
 			e.printStackTrace();
 		}
 		return fetch;
+	}
+
+	public static List<Fetch> getByBrandAndAdjectives(String brand, List<String> adjs) {
+		List<Fetch> fetchs = new ArrayList<Fetch>();
+
+		for (int i = 0; i < adjs.size(); i++) {
+			Fetch f = getByBrandAndAdjective(brand, adjs.get(i));
+			fetchs.add(f);
+		}
+		return fetchs;
 	}
 
 	private static Twitter getTwitter() {
