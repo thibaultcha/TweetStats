@@ -1,8 +1,10 @@
 package fr.ece.tweetstats.core.repositoryimpl;
 
-import fr.ece.tweetstats.core.domain.Tweet;
 import java.util.List;
+
 import org.springframework.stereotype.Repository;
+
+import fr.ece.tweetstats.core.domain.Tweet;
 
 /**
  * Repository implementation for Fetch
