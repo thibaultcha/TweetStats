@@ -8,7 +8,7 @@ public class Main {
 		// TODO Auto-generated method stub
 
 		
-			TwitterAPI.get();
+			TwitterAPI.getByBrandAndAdjective("RATP", "grève");
 
 	}
 
