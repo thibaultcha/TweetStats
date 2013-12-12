@@ -18,6 +18,7 @@ public class TwitterAPI {
 
 	/**
 	 * Get a list of Tweet
+	 * 
 	 * @param brand
 	 * @param adj
 	 * @return List<Tweet>
@@ -25,22 +26,27 @@ public class TwitterAPI {
 	public static List<Tweet> getByBrandAndAdjective(String brand, String adj) {
 		return getByBrandAndAdjective(brand, adj, null);
 	}
-	
+
 	/**
 	 * Get a list of Tweet from lastId
+	 * 
 	 * @param brand
 	 * @param adj
 	 * @param lastId
 	 * @return
 	 */
 	public static List<Tweet> getByBrandAndAdjective(String brand, String adj, Long lastId) {
-		// @TODO handle last id if not null
 		ArrayList<Tweet> tweetResults = new ArrayList<Tweet>();
 		QueryResult result = null;
-		Twitter twitter = getTwitter();
-		try {
-			Query query = new Query(brand + " " + adj);
+		String queryStr = brand + " " + adj;
+		if (lastId != null) {
+			queryStr += " sinceId="+lastId; 
+		}
 			
+		try {
+			Query query = new Query(queryStr);
+			Twitter twitter = getTwitter();
+
 			do {
 				result = twitter.search(query);
 			} while ((query = result.nextQuery()) != null);
@@ -48,27 +54,31 @@ public class TwitterAPI {
 		} catch (TwitterException e) {
 			e.printStackTrace();
 		}
-		
+
 		for (Status status : result.getTweets()) {
-			tweetResults.add(new Tweet(status.getId(), status.getCreatedAt(), status.getText()));
+			tweetResults.add(new Tweet(status.getId(), status.getCreatedAt(),
+					status.getText()));
 		}
-		
+
 		return tweetResults;
 	}
-	
+
 	/**
-	 * Get a list of fetches with results if you don't have an already existing fetch
+	 * Get a list of fetches with results if you don't have an already existing
+	 * fetch
+	 * 
 	 * @param brand
 	 * @param adjs
 	 * @return List<Fetch>
 	 */
-	public static List<Fetch> getByBrandAndAdjectives(String brand, List<String> adjs) {
+	public static List<Fetch> getByBrandAndAdjectives(String brand,
+			List<String> adjs) {
 		List<Fetch> fetches = new ArrayList<Fetch>();
 
 		for (int i = 0; i < adjs.size(); i++) {
 			// create list of results
 			List<Tweet> tweets = getByBrandAndAdjective(brand, adjs.get(i));
-			
+
 			// create new fetch
 			Fetch fetch = new Fetch();
 			fetch.setAdjective(adjs.get(i));
@@ -78,27 +88,29 @@ public class TwitterAPI {
 			for (Tweet tweet : tweets) {
 				fetch.addResult(tweet);
 			}
-			
+
 			// add to our return array
 			fetches.add(fetch);
 		}
 		return fetches;
 	}
-	
+
 	/**
 	 * Update a Fetch with the new results from lastId
+	 * 
 	 * @param fetch
 	 * @return
 	 */
 	public static Fetch getFromExistingFetch(Fetch fetch) {
 		// retrieve the new tweets since fetch.lastId
-		List<Tweet> newTweets = getByBrandAndAdjective(fetch.getBrand(), fetch.getAdjective(), fetch.getLastId());
-		
+		List<Tweet> newTweets = getByBrandAndAdjective(fetch.getBrand(),
+				fetch.getAdjective(), fetch.getLastId());
+
 		// add those new tweets to the existing Fetch object
 		for (Tweet tweet : newTweets) {
 			fetch.addResult(tweet);
 		}
-		
+
 		return fetch;
 	}
 
