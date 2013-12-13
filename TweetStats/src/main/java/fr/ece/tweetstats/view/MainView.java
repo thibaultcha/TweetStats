@@ -191,9 +191,9 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         removeItemButton.setPreferredSize(new Dimension(40,40));
         
         try {
-            removeItemButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource("resources/images/remove.png"))));
+            removeItemButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource("images/remove.png"))));
             addRemoveItemsPanel.add(removeItemButton);
-            addItemButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource("resources/images/add.png"))));
+            addItemButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource("images/add.png"))));
             addRemoveItemsPanel.add(addItemButton);
             
             addItemTextField = new JTextField();

@@ -19,8 +19,7 @@ import org.jfree.ui.ApplicationFrame;
 public class BarChart extends ApplicationFrame {
     private final ChartPanel chartPanel;
     public BarChart(DefaultListModel itemList) {
-        super("Tweetstats");
-
+        super("");
         final CategoryDataset dataset = updateDataset(itemList);
         final JFreeChart chart = createChart(dataset);
         chart.setTitle("Tweetstats");
