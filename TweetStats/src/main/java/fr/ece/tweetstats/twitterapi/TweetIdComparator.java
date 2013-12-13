@@ -7,15 +7,16 @@ import fr.ece.tweetstats.core.domain.Tweet;
 public class TweetIdComparator implements Comparator<Tweet> {
 
 	@Override
-	public int compare(Tweet arg0, Tweet arg1) {
+	public int compare(Tweet b1, Tweet b2) {
 		// TODO Auto-generated method stub
-		if (arg0.getDate().after(arg1.getDate())) {
-			return 1;
-		} else if (arg0.getDate().before(arg1.getDate())) {
-			return -1;
-		} else {
-			return 0;
-		}
+		if (b1.getTweetId().longValue()>b2.getTweetId().longValue()){
+		     return 1;	 
+		   }
+		   else if (b1.getTweetId().longValue()<b2.getTweetId().longValue()){
+			   return -1;
+		   }else{
+			   return 0; 
+		   }
 	}
 
 }

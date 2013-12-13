@@ -1,5 +1,6 @@
 package fr.ece.tweetstats.main;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -9,7 +10,8 @@ import javax.swing.SwingUtilities;
 import fr.ece.tweetstats.core.domain.Fetch;
 import fr.ece.tweetstats.core.domain.Tweet;
 import fr.ece.tweetstats.core.serviceapi.FetchService;
-import fr.ece.tweetstats.twitterapi.TweetComparator;
+import fr.ece.tweetstats.twitterapi.TweetDateComparator;
+import fr.ece.tweetstats.twitterapi.TweetIdComparator;
 import fr.ece.tweetstats.twitterapi.TwitterAPI;
 import fr.ece.tweetstats.view.MainView;
 
@@ -45,13 +47,14 @@ public class Main {
 				fetchResults.get(0).getBrand(), fetchResults.get(0)
 						.getAdjective(), fetchResults.get(0).getLastId());
 		
-		Collections.sort(tweetResults, new TweetComparator());
 		
-		System.out.println("--- " + fetchResults.get(0).getAdjective()
+		
+		
+		/*System.out.println("--- " + fetchResults.get(0).getAdjective()
 				+ " lastId: " + fetchResults.get(0).getLastId() + " ---");
 		for (Tweet tweet : tweetResults) {
 			System.out.println(tweet.getTweetId() + "\t" + tweet.getMessage());
-		}
+		}*/
 		
 		
 
