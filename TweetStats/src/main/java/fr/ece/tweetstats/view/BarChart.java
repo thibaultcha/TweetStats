@@ -4,8 +4,11 @@
  */
 package fr.ece.tweetstats.view;
 
+import java.awt.Color;
 import java.awt.Dimension;
+
 import javax.swing.DefaultListModel;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -22,7 +25,8 @@ public class BarChart {
         final JFreeChart chart = createChart(dataset);
         chart.setTitle("Tweetstats");
         chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new Dimension(950, 800));
+        //chartPanel.setBackground(Color.WHITE);
+        chartPanel.setPreferredSize(new Dimension(930, 760));
     }
 
     private CategoryDataset updateDataset(DefaultListModel itemList) {

@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -24,8 +25,10 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -44,7 +47,8 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
     private int count;
     private int loopVar;
     private BarChart barChart;
-    private JPanel graphPanel;
+    private JPanel barChartPanel;
+    private JPanel tabChartPanel;
     
     public MainView() {
         super("Tweetstats");
@@ -65,6 +69,7 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         
         //######################## MainPanel ########################
         JPanel mainViewPanel = new JPanel(new BorderLayout());
+        mainViewPanel.setBackground(Color.WHITE);
         
         //######################## AsidePanel ########################
         JPanel asidePanel = new JPanel();
@@ -80,67 +85,16 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         //######################## FetchPanel ########################
         JPanel fetchPanel = new JPanel();
         fetchPanel.setLayout(new BoxLayout(fetchPanel, BoxLayout.Y_AXIS));
+        fetchPanel.setBackground(Color.WHITE);
         
         fetchButton = new JButton("Fetch");
+        fetchButton.setBackground(Color.WHITE);
         fetchButton.addActionListener(this);
         this.setMySize(fetchButton, 100, 40);
         fetchButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         fetchPanel.add(fetchButton);
-        
-        JPanel yearPanel = new JPanel();
-        yearPanel.setLayout(new BoxLayout(yearPanel, BoxLayout.X_AXIS));
-        
-        JLabel yearLabel = new JLabel("Year ");
-        yearPanel.add(yearLabel);
-        
-        yearTextField = new JTextField();
-        //on lui donne une dimension
-        this.setMySize(yearTextField, 200, 40);
-        
-        //on peut rentrer jusqu'a 15 caracteres
-        yearTextField.setColumns(15);
-        //on set une police
-        Font police = new Font("Arial", Font.BOLD, 14);
-        yearTextField.setFont(police);
-        //on ajoute les differents elements
-        yearPanel.add(yearTextField);
-        fetchPanel.add(yearPanel);
-        
-        JPanel monthPanel = new JPanel();
-        monthPanel.setLayout(new BoxLayout(monthPanel, BoxLayout.X_AXIS));
-        
-        JLabel monthLanel = new JLabel("Month");
-        monthPanel.add(monthLanel);
-                    
-        monthTextField = new JTextField();
-        //on lui donne une dimension
-        this.setMySize(monthTextField, 200, 40);
-        //on peut rentrer jusqu'a 15 caracteres
-        monthTextField.setColumns(15);
-        //on set une police
-        monthTextField.setFont(police);
-        //on ajoute les differents elements
-        monthPanel.add(monthTextField);
-        fetchPanel.add(monthPanel);
-        
-        JPanel dayPanel = new JPanel();
-        dayPanel.setLayout(new BoxLayout(dayPanel, BoxLayout.X_AXIS));
-        
-        JLabel dayLanel = new JLabel("Day  ");
-        dayPanel.add(dayLanel);
-        
-        dayTextField = new JTextField();
-        //on lui donne une dimension
-        this.setMySize(dayTextField, 200, 40);
-        //on peut rentrer jusqu'a 15 caracteres
-        dayTextField.setColumns(15);
-        //on set une police
-        dayTextField.setFont(police);
-        //on ajoute les differents elements
-        dayPanel.add(dayTextField);
-        fetchPanel.add(dayPanel);
-        
         flowFetchPanel.add(fetchPanel);
+        
         asidePanel.add(flowFetchPanel);
         
         //######################## FlowJListPanel ########################
@@ -153,6 +107,7 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         //######################## JListPanel ########################
         JPanel JListPanel = new JPanel();
         JListPanel.setLayout(new BoxLayout(JListPanel, BoxLayout.Y_AXIS));
+        JListPanel.setBackground(Color.WHITE);
         
         itemList = new DefaultListModel();
 
@@ -178,43 +133,36 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         
         //######################## AddRemoveItemPanel ########################
         JPanel addRemoveItemsPanel = new JPanel();
+        addRemoveItemsPanel.setBackground(Color.WHITE);
         Border frame = BorderFactory.createTitledBorder("add/Remove");
         addRemoveItemsPanel.setBorder(frame);
         
         addRemoveItemsPanel.setLayout(new BoxLayout(addRemoveItemsPanel, BoxLayout.X_AXIS));
         //buttonPanel.setBackground(Color.WHITE);
-        addItemButton = new JButton();
+        addItemButton = new JButton("+");
         addItemButton.addActionListener(this);
         addItemButton.setPreferredSize(new Dimension(40,40));
-        removeItemButton = new JButton();
+        removeItemButton = new JButton("-");
         removeItemButton.addActionListener(this);
         removeItemButton.setPreferredSize(new Dimension(40,40));
         
-        //try {
-            //removeItemButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource("images/remove.png"))));
-            //addRemoveItemsPanel.add(removeItemButton);
-            //addItemButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource("images/add.png"))));
-            //addRemoveItemsPanel.add(addItemButton);
-            
-            addItemTextField = new JTextField();
-            //on lui donne une dimension
-            this.setMySize(addItemTextField, 200, 40);
-            //on peut rentrer jusqu'a 15 caracteres
-            addItemTextField.setColumns(15);
-            //on set une police
-            addItemTextField.setFont(police);
-            //on ajoute les differents elements
-            addRemoveItemsPanel.add(Box.createHorizontalStrut(10));
-            addRemoveItemsPanel.add(addItemTextField);
-        /*} 
-        catch (IOException ex) {
-            Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        addRemoveItemsPanel.add(removeItemButton);
+        addRemoveItemsPanel.add(addItemButton);
+        
+        addItemTextField = new JTextField();
+        //on lui donne une dimension
+        this.setMySize(addItemTextField, 200, 40);
+        //on peut rentrer jusqu'a 15 caracteres
+        addItemTextField.setColumns(15);
+        //on ajoute les differents elements
+        addRemoveItemsPanel.add(Box.createHorizontalStrut(10));
+        addRemoveItemsPanel.add(addItemTextField);
         
         asidePanel.add(addRemoveItemsPanel);
         
         //######################## InformationPanel ########################
         JPanel informationPanel = new JPanel();
+        informationPanel.setBackground(Color.WHITE);
         Border informationFrame = BorderFactory.createTitledBorder("information");
         informationPanel.setBorder(informationFrame);
         
@@ -225,14 +173,24 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         
         mainViewPanel.add(asidePanel, BorderLayout.WEST);
         
-        //######################## GraphPanel ########################
-        graphPanel = new JPanel(new FlowLayout());
-        graphPanel.setBackground(Color.WHITE);
+        //######################## GraphPanels ########################
+        JTabbedPane tabbedPane = new JTabbedPane(SwingConstants.TOP);
+        
+        //######################## BarChartPanel ########################
+        barChartPanel = new JPanel(new FlowLayout());
         barChart = new BarChart(itemList);
-        graphPanel.add(barChart.getChartPanel());
+        barChartPanel.add(barChart.getChartPanel());
         
-        mainViewPanel.add(graphPanel, BorderLayout.CENTER);
+        tabbedPane.addTab("Bar Chart", barChartPanel);
         
+        //######################## TabChartPanel ########################
+        tabChartPanel = new JPanel(new FlowLayout());
+        tabChartPanel.setBackground(Color.WHITE);
+        tabChartPanel.setForeground(Color.WHITE);
+        
+        tabbedPane.addTab("tab", tabChartPanel);
+
+        mainViewPanel.add(tabbedPane, BorderLayout.CENTER);
         this.setContentPane(mainViewPanel);
     }
     
@@ -272,10 +230,10 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         }
         else if(source == fetchButton) {
             barChart = new BarChart(itemList);
-            graphPanel.removeAll();
-            graphPanel.add(barChart.getChartPanel());
-            graphPanel.validate();
-            graphPanel.repaint();
+            barChartPanel.removeAll();
+            barChartPanel.add(barChart.getChartPanel());
+            barChartPanel.validate();
+            barChartPanel.repaint();
         }
     }
     
