@@ -65,7 +65,7 @@ public class TwitterAPI {
 
 		return tweetResults;
 	}
-
+	
 	/**
 	 * Get a list of fetches with results if you don't have an already existing
 	 * fetch
