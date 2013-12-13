@@ -3,10 +3,13 @@ package fr.ece.tweetstats.main;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
+
 import fr.ece.tweetstats.core.domain.Fetch;
 import fr.ece.tweetstats.core.domain.Tweet;
 import fr.ece.tweetstats.core.serviceapi.FetchService;
 import fr.ece.tweetstats.twitterapi.TwitterAPI;
+import fr.ece.tweetstats.view.MainView;
 
 public class Main {
 
@@ -34,6 +37,13 @@ public class Main {
 		for (Tweet tweet : tweetResults) {
 			System.out.println(tweet.getTweetId() + "\t" + tweet.getMessage());
 		}
+		
+		SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {   
+                MainView mainView = new MainView();
+            }
+        });
 	}
 
 }
