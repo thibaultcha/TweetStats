@@ -1,15 +1,15 @@
 package fr.ece.tweetstats.main;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
+
+import javax.swing.SwingUtilities;
 
 import fr.ece.tweetstats.core.domain.Fetch;
 import fr.ece.tweetstats.core.domain.Tweet;
 import fr.ece.tweetstats.core.serviceapi.FetchService;
-import fr.ece.tweetstats.twitterapi.TweetComparator;
 import fr.ece.tweetstats.twitterapi.TwitterAPI;
+import fr.ece.tweetstats.view.MainView;
 
 public class Main {
 
@@ -17,7 +17,6 @@ public class Main {
 	
 	public static void main(String[] args) {
 		int count = 0;
-	
 		List<String> adjectives = Arrays.asList("grève", "retard");
 		// Synchrone call to Twitter API
 		List<Fetch> fetchResults = TwitterAPI.getByBrandAndAdjectives("RATP", adjectives);
@@ -39,14 +38,12 @@ public class Main {
 			System.out.println(tweet.getTweetId() + "\t" + tweet.getMessage());
 		}
 		
-		Collections.sort(tweetResults, new TweetComparator());
-	
-		for (Tweet tweet : tweetResults) {
-			System.out.println(tweet.getTweetId() + "\t" + tweet.getMessage());
-		}
-		
+		SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {   
+                MainView mainView = new MainView();
+            }
+        });
 	}
 
-	
-	
 }

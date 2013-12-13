@@ -258,6 +258,11 @@
 			<!-- Add scope test when deployed in jboss -->
 			<!-- <scope>test</scope> -->
 		</dependency>
+		<dependency>
+			<groupId>jfree</groupId>
+			<artifactId>jfreechart</artifactId>
+			<version>1.0.9</version>
+		</dependency>
 	</dependencies>
 
 	<!-- Profiles -->
