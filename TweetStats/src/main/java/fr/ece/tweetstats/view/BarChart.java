@@ -14,12 +14,10 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.ApplicationFrame;
 
-public class BarChart extends ApplicationFrame {
+public class BarChart {
     private final ChartPanel chartPanel;
     public BarChart(DefaultListModel itemList) {
-        super("");
         final CategoryDataset dataset = updateDataset(itemList);
         final JFreeChart chart = createChart(dataset);
         chart.setTitle("Tweetstats");
