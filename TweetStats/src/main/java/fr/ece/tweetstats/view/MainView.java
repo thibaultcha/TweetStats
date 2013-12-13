@@ -190,11 +190,11 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         removeItemButton.addActionListener(this);
         removeItemButton.setPreferredSize(new Dimension(40,40));
         
-        try {
-            removeItemButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource("images/remove.png"))));
-            addRemoveItemsPanel.add(removeItemButton);
-            addItemButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource("images/add.png"))));
-            addRemoveItemsPanel.add(addItemButton);
+        //try {
+            //removeItemButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource("images/remove.png"))));
+            //addRemoveItemsPanel.add(removeItemButton);
+            //addItemButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource("images/add.png"))));
+            //addRemoveItemsPanel.add(addItemButton);
             
             addItemTextField = new JTextField();
             //on lui donne une dimension
@@ -206,10 +206,10 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
             //on ajoute les differents elements
             addRemoveItemsPanel.add(Box.createHorizontalStrut(10));
             addRemoveItemsPanel.add(addItemTextField);
-        } 
+        /*} 
         catch (IOException ex) {
             Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
         
         asidePanel.add(addRemoveItemsPanel);
         
