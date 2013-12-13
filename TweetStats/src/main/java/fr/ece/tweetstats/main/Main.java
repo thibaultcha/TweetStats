@@ -13,17 +13,19 @@ public class Main {
 	private FetchService fetchService;
 	
 	public static void main(String[] args) {
-		TwitterAPI.getByBrandAndAdjective("RATP", "grève");
-
+		int count = 0;
 		List<String> adjectives = Arrays.asList("grève", "retard");
 		// Synchrone call to Twitter API
 		List<Fetch> fetchResults = TwitterAPI.getByBrandAndAdjectives("RATP", adjectives);
 		for (Fetch fetch : fetchResults) {
 			System.out.println("--- " + fetch.getAdjective() + " ---");
 			for (Tweet tweet : fetch.getResults()) {
+				count++;
 				System.out.println(tweet.getTweetId() + "\t" + tweet.getMessage());
 			}
 		}
+		
+		System.out.println(count);
 		
 		List<Tweet> tweetResults = TwitterAPI.getByBrandAndAdjective(fetchResults.get(0).getBrand(), 
 																	 fetchResults.get(0).getAdjective(), 
