@@ -38,10 +38,12 @@ public class TwitterAPI {
 	public static List<Tweet> getByBrandAndAdjective(String brand, String adj, Long lastId) {
 		ArrayList<Tweet> tweetResults = new ArrayList<Tweet>();
 		QueryResult result = null;		
-			
+		
 		try {
 			Query query = new Query(brand + " " + adj);
 			query.resultType("recent");
+			query.setCount(1000);
+			
 			if (lastId != null) {
 				query.sinceId(lastId); 
 			}
