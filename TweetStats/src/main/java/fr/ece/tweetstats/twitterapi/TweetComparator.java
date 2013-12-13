@@ -19,12 +19,6 @@ public class TweetComparator implements Comparator<Tweet> {
 	}
 
 	/**
-	 * 	if (b1.getDate().after(b2.getDate())) {
-					return 1;
-				} else if (b1.getDate().before(b2.getDate())) {
-					return -1;
-				} else {
-					return 0;
-				}
+	 * 	
 	 */
 }
