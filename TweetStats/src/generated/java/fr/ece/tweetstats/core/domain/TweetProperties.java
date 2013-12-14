@@ -35,6 +35,10 @@ public class TweetProperties {
 		return sharedInstance.message();
 	}
 
+	public static Property<Tweet> location() {
+		return sharedInstance.location();
+	}
+
 	public static Property<Tweet> uuid() {
 		return sharedInstance.uuid();
 	}
@@ -65,7 +69,7 @@ public class TweetProperties {
 		}
 
 		public Property<T> id() {
-			return new LeafProperty<T>(getParentPath(), "id", false, owningClass);
+			return new LeafProperty<T>(getParentPath(), "_id", false, owningClass);
 		}
 
 		public Property<T> tweetId() {
@@ -78,6 +82,10 @@ public class TweetProperties {
 
 		public Property<T> message() {
 			return new LeafProperty<T>(getParentPath(), "message", false, owningClass);
+		}
+
+		public Property<T> location() {
+			return new LeafProperty<T>(getParentPath(), "location", false, owningClass);
 		}
 
 		public Property<T> uuid() {

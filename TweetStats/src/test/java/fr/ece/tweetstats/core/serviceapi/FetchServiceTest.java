@@ -1,75 +1,78 @@
 package fr.ece.tweetstats.core.serviceapi;
 
-import java.util.Date;
-import java.util.List;
-
-import fr.ece.tweetstats.core.domain.Fetch;
 import fr.ece.tweetstats.core.serviceapi.FetchService;
-
+import java.util.Set;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.sculptor.framework.errorhandling.SimpleJUnitServiceContextFactory;
-import org.sculptor.framework.test.AbstractDbUnitJpaTests;
+import org.junit.runner.RunWith;
+import org.sculptor.framework.accessimpl.mongodb.DbManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.*;
 
 /**
- * Spring based transactional test with DbUnit support.
+ * Spring based test with MongoDB.
  */
-public class FetchServiceTest extends AbstractDbUnitJpaTests implements FetchServiceTestBase {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath:applicationContext-test.xml" })
+public class FetchServiceTest extends AbstractJUnit4SpringContextTests implements FetchServiceTestBase {
 
 	@Autowired
-	protected FetchService fetchService;
+	private DbManager dbManager;
 
-	private Long fetchId;
-	
+	@Autowired
+	private FetchService fetchService;
+
 	@Before
 	public void initTestData() {
-	    Fetch fetch = new Fetch();
-	    fetch.setBrand("RATP");
-	    fetch.setAdjective("Mauvais service");
-	    fetch.setDate(new Date());
-	    fetch.setLastId(new Long(1234));
-	    fetch.setCreatedDate(new Date());
-	    
-	    Fetch saved = fetchService.save(SimpleJUnitServiceContextFactory.getServiceContext(), fetch);
-	    this.fetchId = saved.getId();
-	    
-	    Fetch fetch2 = new Fetch();
-	    fetch2.setBrand("Alloresto");
-	    fetch2.setAdjective("Retard");
-	    fetch2.setDate(new Date());
-	    fetch2.setLastId(new Long(1234));
-	    fetch2.setCreatedDate(new Date());
-	    
-	    fetchService.save(SimpleJUnitServiceContextFactory.getServiceContext(), fetch2);
+	}
+
+	@Before
+	public void initDbManagerThreadInstance() throws Exception {
+		// to be able to do lazy loading of associations inside test class
+		DbManager.setThreadInstance(dbManager);
+	}
+
+	@After
+	public void dropDatabase() {
+		Set<String> names = dbManager.getDB().getCollectionNames();
+		for (String each : names) {
+			if (!each.startsWith("system")) {
+				dbManager.getDB().getCollection(each).drop();
+			}
+		}
+		// dbManager.getDB().dropDatabase();
+	}
+
+	private int countRowsInDBCollection(String name) {
+		return (int) dbManager.getDBCollection(name).getCount();
 	}
 
 	@Test
 	public void testFindById() throws Exception {
-		Fetch found = fetchService.findById(SimpleJUnitServiceContextFactory.getServiceContext(), this.fetchId);
-		assertEquals("RATP", found.getBrand());
+		// TODO Auto-generated method stub
+		fail("testFindById not implemented");
 	}
 
 	@Test
 	public void testFindAll() throws Exception {
-		List<Fetch> fetches = fetchService.findAll(SimpleJUnitServiceContextFactory.getServiceContext());
-		assertEquals(2, fetches.size());
+		// TODO Auto-generated method stub
+		fail("testFindAll not implemented");
 	}
 
-	@Override
+	@Test
 	public void testSave() throws Exception {
 		// TODO Auto-generated method stub
-		
+		fail("testSave not implemented");
 	}
 
 	@Test
 	public void testDelete() throws Exception {
-		Fetch found = fetchService.findById(SimpleJUnitServiceContextFactory.getServiceContext(), this.fetchId);
-		fetchService.delete(SimpleJUnitServiceContextFactory.getServiceContext(), found);
-		
-		List<Fetch> fetches = fetchService.findAll(SimpleJUnitServiceContextFactory.getServiceContext());
-		assertEquals(1, fetches.size());
+		// TODO Auto-generated method stub
+		fail("testDelete not implemented");
 	}
 }

@@ -38,8 +38,8 @@
 	</bean>
 
 	<!-- import additional spring configuration files -->
-	<import resource="classpath:/EntityManagerFactory.xml"/>
 	<import resource="classpath:/pub-sub.xml"/>
 	<import resource="classpath:/Interceptor.xml"/>
 	<import resource="classpath:/more.xml"/>
+	<import resource="classpath:/mongodb.xml"/>
 </beans>

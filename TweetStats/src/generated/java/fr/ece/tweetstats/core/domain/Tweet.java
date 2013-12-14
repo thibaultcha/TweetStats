@@ -1,54 +1,30 @@
 package fr.ece.tweetstats.core.domain;
 
-import java.util.Date;
 import java.util.UUID;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import org.apache.commons.lang.Validate;
-import org.hibernate.annotations.Type;
+import org.joda.time.LocalDate;
 import org.sculptor.framework.domain.AbstractDomainObject;
-import org.sculptor.framework.domain.Identifiable;
 import org.sculptor.framework.util.EqualsHelper;
 
 /**
  * ValueObjectImpl representing Tweet.
  */
 
-@Entity
-@Table(name = "TWEET")
-@EntityListeners({})
-public class Tweet extends AbstractDomainObject implements Identifiable {
+public class Tweet extends AbstractDomainObject {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID")
-	private Long id;
-	@Column(name = "TWEETID", nullable = false)
-	@NotNull
+	private String id;
 	private Long tweetId;
-	@Column(name = "DATE", nullable = false)
-	@Type(type = "date")
-	@NotNull
-	private Date date;
-	@Column(name = "MESSAGE", nullable = false, length = 100)
-	@NotNull
+	private LocalDate date;
 	private String message;
-	@Column(name = "UUID", nullable = false, length = 36, unique = true)
+	private String location;
 	private String uuid;
 
 	protected Tweet() {
 	}
 
-	public Tweet(Long tweetId, Date date, String message) {
+	public Tweet(Long tweetId, LocalDate date, String message, String location) {
 		super();
 		Validate.notNull(tweetId, "Tweet.tweetId must not be null");
 		this.tweetId = tweetId;
@@ -56,23 +32,25 @@ public class Tweet extends AbstractDomainObject implements Identifiable {
 		this.date = date;
 		Validate.notNull(message, "Tweet.message must not be null");
 		this.message = message;
+		Validate.notNull(location, "Tweet.location must not be null");
+		this.location = location;
 	}
 
 	/**
 	 * Creates a new Tweet. Typically used with static import to achieve fluent interface.
 	 */
-	public static Tweet tweet(Long tweetId, Date date, String message) {
-		return new Tweet(tweetId, date, message);
+	public static Tweet tweet(Long tweetId, LocalDate date, String message, String location) {
+		return new Tweet(tweetId, date, message, location);
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	};
 
 	/**
 	 * The id is not intended to be changed or assigned manually, but for test purpose it is allowed to assign the id.
 	 */
-	protected void setId(Long id) {
+	protected void setId(String id) {
 		if ((this.id != null) && !this.id.equals(id)) {
 			throw new IllegalArgumentException("Not allowed to change the id property.");
 		}
@@ -83,12 +61,48 @@ public class Tweet extends AbstractDomainObject implements Identifiable {
 		return tweetId;
 	};
 
-	public Date getDate() {
+	@SuppressWarnings("unused")
+	private void setTweetId(Long tweetId) {
+		if ((this.tweetId != null) && !this.tweetId.equals(tweetId)) {
+			throw new IllegalArgumentException("Not allowed to change the tweetId property.");
+		}
+		this.tweetId = tweetId;
+	};
+
+	public LocalDate getDate() {
 		return date;
+	};
+
+	@SuppressWarnings("unused")
+	private void setDate(LocalDate date) {
+		if ((this.date != null) && !this.date.equals(date)) {
+			throw new IllegalArgumentException("Not allowed to change the date property.");
+		}
+		this.date = date;
 	};
 
 	public String getMessage() {
 		return message;
+	};
+
+	@SuppressWarnings("unused")
+	private void setMessage(String message) {
+		if ((this.message != null) && !this.message.equals(message)) {
+			throw new IllegalArgumentException("Not allowed to change the message property.");
+		}
+		this.message = message;
+	};
+
+	public String getLocation() {
+		return location;
+	};
+
+	@SuppressWarnings("unused")
+	private void setLocation(String location) {
+		if ((this.location != null) && !this.location.equals(location)) {
+			throw new IllegalArgumentException("Not allowed to change the location property.");
+		}
+		this.location = location;
 	};
 
 	/**
@@ -103,6 +117,11 @@ public class Tweet extends AbstractDomainObject implements Identifiable {
 		return uuid;
 	}
 
+	@SuppressWarnings("unused")
+	private void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
 	/**
 	 * Creates a copy of this instance, but with another tweetId.
 	 */
@@ -110,17 +129,17 @@ public class Tweet extends AbstractDomainObject implements Identifiable {
 		if (EqualsHelper.equals(tweetId, getTweetId())) {
 			return this;
 		}
-		return new Tweet(tweetId, getDate(), getMessage());
+		return new Tweet(tweetId, getDate(), getMessage(), getLocation());
 	};
 
 	/**
 	 * Creates a copy of this instance, but with another date.
 	 */
-	public Tweet withDate(Date date) {
+	public Tweet withDate(LocalDate date) {
 		if (EqualsHelper.equals(date, getDate())) {
 			return this;
 		}
-		return new Tweet(getTweetId(), date, getMessage());
+		return new Tweet(getTweetId(), date, getMessage(), getLocation());
 	};
 
 	/**
@@ -130,13 +149,18 @@ public class Tweet extends AbstractDomainObject implements Identifiable {
 		if (EqualsHelper.equals(message, getMessage())) {
 			return this;
 		}
-		return new Tweet(getTweetId(), getDate(), message);
+		return new Tweet(getTweetId(), getDate(), message, getLocation());
 	};
 
-	@PrePersist
-	protected void prePersist() {
-		getUuid();
-	}
+	/**
+	 * Creates a copy of this instance, but with another location.
+	 */
+	public Tweet withLocation(String location) {
+		if (EqualsHelper.equals(location, getLocation())) {
+			return this;
+		}
+		return new Tweet(getTweetId(), getDate(), getMessage(), location);
+	};
 
 	/**
 	 * This method is used by equals and hashCode.

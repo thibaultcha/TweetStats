@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="mongodbManager" class="org.sculptor.framework.accessimpl.mongodb.DbManager">
+		<property name="dbname" value="${mongodb.dbname}" />
+		<property name="dbUrl1" value="${mongodb.url1}" />
+		<property name="dbUrl2" value="${mongodb.url2}" />
+		<property name="options" ref="mongodbOptions" />
+	</bean>
+	<bean id="mongodbOptions" class="org.sculptor.framework.accessimpl.mongodb.MongoOptionsWrapper">
+		<property name="connectionsPerHost" value="${mongodbOptions.connectionsPerHost}" />
+		<property name="threadsAllowedToBlockForConnectionMultiplier" value="${mongodbOptions.threadsAllowedToBlockForConnectionMultiplier}" />
+		<property name="connectTimeout" value="${mongodbOptions.connectTimeout}" />
+		<property name="socketTimeout" value="${mongodbOptions.socketTimeout}" />
+		<property name="autoConnectRetry" value="${mongodbOptions.autoConnectRetry}" />
+	</bean>
+</beans>

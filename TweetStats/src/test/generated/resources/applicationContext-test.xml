@@ -37,8 +37,8 @@
 		</property>
 	</bean>
 
-	<import resource="classpath:/EntityManagerFactory-test.xml"/>
 	<import resource="classpath:/pub-sub.xml"/>
 	<import resource="classpath:/Interceptor-test.xml"/>
 	<import resource="classpath:/more-test.xml"/>
+	<import resource="classpath:/mongodb-test.xml"/>
 </beans>

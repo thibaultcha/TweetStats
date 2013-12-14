@@ -1,7 +1,7 @@
 package fr.ece.tweetstats.core.domain;
 
 import fr.ece.tweetstats.core.domain.Tweet;
-import java.util.Date;
+import org.joda.time.LocalDate;
 
 /**
  * Builder for Tweet class.
@@ -9,8 +9,9 @@ import java.util.Date;
 public class TweetBuilder {
 
 	private Long tweetId;
-	private Date date;
+	private LocalDate date;
 	private String message;
+	private String location;
 
 	/**
 	 * Static factory method for TweetBuilder
@@ -22,13 +23,15 @@ public class TweetBuilder {
 	public TweetBuilder() {
 	}
 
-	public TweetBuilder(Long tweetId, Date date, String message) {
+	public TweetBuilder(Long tweetId, LocalDate date, String message, String location) {
 
 		this.tweetId = tweetId;
 
 		this.date = date;
 
 		this.message = message;
+
+		this.location = location;
 
 	}
 
@@ -37,7 +40,7 @@ public class TweetBuilder {
 		return this;
 	}
 
-	public TweetBuilder date(Date val) {
+	public TweetBuilder date(LocalDate val) {
 		this.date = val;
 		return this;
 	}
@@ -47,11 +50,16 @@ public class TweetBuilder {
 		return this;
 	}
 
+	public TweetBuilder location(String val) {
+		this.location = val;
+		return this;
+	}
+
 	public Long getTweetId() {
 		return tweetId;
 	};
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	};
 
@@ -59,11 +67,15 @@ public class TweetBuilder {
 		return message;
 	};
 
+	public String getLocation() {
+		return location;
+	};
+
 	/**
 	 * @return new Tweet instance constructed based on the values that have been set into this builder
 	 */
 	public Tweet build() {
-		Tweet obj = new Tweet(getTweetId(), getDate(), getMessage());
+		Tweet obj = new Tweet(getTweetId(), getDate(), getMessage(), getLocation());
 
 		return obj;
 	}

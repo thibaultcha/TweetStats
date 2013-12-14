@@ -20,25 +20,12 @@
 
 	<aop:aspectj-autoproxy/>
 
-	<bean id="jpaInterceptorFlushEager" class="org.springframework.orm.jpa.JpaInterceptor">
-		<property name="entityManagerFactory" ref="entityManagerFactory"/>
-		<!-- Need to flush to detect OptimisticLockingException and do proper rollback. -->
-		<property name="flushEager" value="true"/>
+
+	<bean id="errorHandlingAdvice" class="org.sculptor.framework.errorhandling.BasicErrorHandlingAdvice" />
+	<bean id="mongodbManagerAdvice" class="org.sculptor.framework.accessimpl.mongodb.DbManagerAdvice" >
+		<property name="dbManager" ref="mongodbManager" />
 	</bean>
 
-	<bean id="errorHandlingAdvice" class="org.sculptor.framework.errorhandling.ErrorHandlingAdvice" />
-	<bean id="hibernateErrorHandlingAdvice" class="org.sculptor.framework.errorhandling.HibernateErrorHandlingAdvice" />
-	<bean id="serviceContextStoreAdvice" class="org.sculptor.framework.errorhandling.ServiceContextStoreAdvice" />
-
-	<tx:advice id="txAdvice" transaction-manager="txManager">
-		<tx:attributes>
-			<!-- all methods starting with 'get' or 'find' are read-only -->
-			<tx:method name="get*" read-only="true"/>
-			<tx:method name="find*" read-only="true"/>
-			<!-- all other methods are transactional and ApplicationException will cause rollback -->
-			<tx:method name="*" read-only="false" rollback-for="org.sculptor.framework.errorhandling.ApplicationException"/>
-		</tx:attributes>
-	</tx:advice>
 
 	<aop:config>
 	
@@ -50,11 +37,8 @@
 		<aop:pointcut id="updatingBusinessService"
 			expression="execution(public * fr.ece.tweetstats..serviceapi.*.*(..)) and not (execution(public * fr.ece.tweetstats..serviceapi.*.get*(..)) or execution(public * fr.ece.tweetstats..serviceapi.*.find*(..)))"/>
 	
-		<aop:advisor pointcut-ref="businessService" advice-ref="txAdvice" order="1" />
-		<aop:advisor pointcut-ref="businessService" advice-ref="serviceContextStoreAdvice" order="2" />
 		<aop:advisor pointcut-ref="businessService" advice-ref="errorHandlingAdvice" order="3" />
-		<aop:advisor pointcut-ref="businessService" advice-ref="hibernateErrorHandlingAdvice" order="4" />
-		<aop:advisor pointcut-ref="updatingBusinessService" advice-ref="jpaInterceptorFlushEager" order="5" />
+		<aop:advisor pointcut-ref="businessService" advice-ref="mongodbManagerAdvice" order="5" />
 	
 	
 	</aop:config>
