@@ -5,19 +5,12 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -36,9 +29,6 @@ import javax.swing.event.ListSelectionListener;
 
 public class MainView extends JFrame implements ActionListener, ListSelectionListener {
     private JTextField addItemTextField;
-    private JTextField yearTextField;
-    private JTextField monthTextField;
-    private JTextField dayTextField;
     private JButton addItemButton;
     private JButton removeItemButton;
     private JButton fetchButton;
@@ -47,8 +37,9 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
     private int count;
     private int loopVar;
     private BarChart barChart;
+    private LineChart lineChart;
     private JPanel barChartPanel;
-    private JPanel tabChartPanel;
+    private JPanel lineChartPanel;
     
     public MainView() {
         super("Tweetstats");
@@ -73,13 +64,16 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         
         //######################## AsidePanel ########################
         JPanel asidePanel = new JPanel();
+        asidePanel.setBackground(Color.WHITE);
         asidePanel.setLayout(new BoxLayout(asidePanel, BoxLayout.Y_AXIS));
+        asidePanel.add(Box.createVerticalStrut(8));
         
         //######################## FlowFetchPanel ########################
         JPanel flowFetchPanel = new JPanel();
         flowFetchPanel.setLayout(new FlowLayout());
         Border fetchFrame = BorderFactory.createTitledBorder("Fetch area");
         flowFetchPanel.setBorder(fetchFrame);
+        this.setMySize(flowFetchPanel, 300, 90);
         flowFetchPanel.setBackground(Color.WHITE);
         
         //######################## FetchPanel ########################
@@ -102,6 +96,7 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         flowFetchPanel.setLayout(new FlowLayout());
         Border jListFrame = BorderFactory.createTitledBorder("Items area");
         flowJListPanel.setBorder(jListFrame);
+        this.setMySize(flowJListPanel, 300, 300);
         flowJListPanel.setBackground(Color.WHITE);
         
         //######################## JListPanel ########################
@@ -133,6 +128,7 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         
         //######################## AddRemoveItemPanel ########################
         JPanel addRemoveItemsPanel = new JPanel();
+        this.setMySize(addRemoveItemsPanel, 300, 100);
         addRemoveItemsPanel.setBackground(Color.WHITE);
         Border frame = BorderFactory.createTitledBorder("add/Remove");
         addRemoveItemsPanel.setBorder(frame);
@@ -170,6 +166,7 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         informationPanel.add(label);
         
         asidePanel.add(informationPanel);
+        asidePanel.add(Box.createVerticalStrut(8));
         
         mainViewPanel.add(asidePanel, BorderLayout.WEST);
         
@@ -180,15 +177,17 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         barChartPanel = new JPanel(new FlowLayout());
         barChart = new BarChart(itemList);
         barChartPanel.add(barChart.getChartPanel());
+        barChartPanel.setBackground(Color.WHITE);
         
         tabbedPane.addTab("Bar Chart", barChartPanel);
         
-        //######################## TabChartPanel ########################
-        tabChartPanel = new JPanel(new FlowLayout());
-        tabChartPanel.setBackground(Color.WHITE);
-        tabChartPanel.setForeground(Color.WHITE);
+        //######################## LineChartPanel ########################
+        lineChartPanel = new JPanel(new FlowLayout());
+        lineChart = new LineChart();
+        lineChartPanel.add(lineChart.getChartPanel());
+        lineChartPanel.setBackground(Color.WHITE);
         
-        tabbedPane.addTab("tab", tabChartPanel);
+        tabbedPane.addTab("Line Chart", lineChartPanel);
 
         mainViewPanel.add(tabbedPane, BorderLayout.CENTER);
         this.setContentPane(mainViewPanel);

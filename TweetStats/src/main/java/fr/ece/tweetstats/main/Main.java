@@ -20,14 +20,14 @@ public class Main {
 	private FetchService fetchService;
 
 	public static void main(String[] args) {
-		/*
-		 * SwingUtilities.invokeLater(new Runnable() {
-		 * 
-		 * @Override public void run() { MainView mainView = new MainView(); }
-		 * });
-		 */
 		
-		int count = 0;
+		 SwingUtilities.invokeLater(new Runnable() {
+		 
+		 @Override public void run() { MainView mainView = new MainView(); }
+		 });
+		 
+		
+		/*int count = 0;
 		List<String> adjectives = Arrays.asList("grève", "retard");
 		// Synchrone call to Twitter API
 		List<Fetch> fetchResults = TwitterAPI.getByBrandAndAdjectives("RATP",
@@ -50,7 +50,7 @@ public class Main {
 		
 		
 		
-		/*System.out.println("--- " + fetchResults.get(0).getAdjective()
+		System.out.println("--- " + fetchResults.get(0).getAdjective()
 				+ " lastId: " + fetchResults.get(0).getLastId() + " ---");
 		for (Tweet tweet : tweetResults) {
 			System.out.println(tweet.getTweetId() + "\t" + tweet.getMessage());
