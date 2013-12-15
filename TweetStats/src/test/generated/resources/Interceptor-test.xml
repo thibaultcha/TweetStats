@@ -28,7 +28,6 @@
 	
 		<!-- Need this when JUnit directly to Repository -->
 		<aop:advisor pointcut-ref="repository" advice-ref="errorHandlingAdvice" order="3" />
-		<aop:advisor pointcut-ref="repository" advice-ref="hibernateErrorHandlingAdvice" order="4" />
 	
 	</aop:config>
 

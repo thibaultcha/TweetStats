@@ -2,22 +2,23 @@ package fr.ece.tweetstats.core.domain;
 
 import fr.ece.tweetstats.core.domain.Fetch;
 import fr.ece.tweetstats.core.domain.Tweet;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 /**
  * Builder for Fetch class.
  */
 public class FetchBuilder {
 
-	private Date date;
+	private LocalDate lastFetchDate;
 	private String brand;
 	private String adjective;
 	private Long lastId;
-	private Date createdDate;
+	private DateTime createdDate;
 	private String createdBy;
-	private Date lastUpdated;
+	private DateTime lastUpdated;
 	private String lastUpdatedBy;
 
 	private Set<Tweet> results = new HashSet<Tweet>();
@@ -32,8 +33,8 @@ public class FetchBuilder {
 	public FetchBuilder() {
 	}
 
-	public FetchBuilder date(Date val) {
-		this.date = val;
+	public FetchBuilder lastFetchDate(LocalDate val) {
+		this.lastFetchDate = val;
 		return this;
 	}
 
@@ -52,7 +53,7 @@ public class FetchBuilder {
 		return this;
 	}
 
-	public FetchBuilder createdDate(Date val) {
+	public FetchBuilder createdDate(DateTime val) {
 		this.createdDate = val;
 		return this;
 	}
@@ -62,7 +63,7 @@ public class FetchBuilder {
 		return this;
 	}
 
-	public FetchBuilder lastUpdated(Date val) {
+	public FetchBuilder lastUpdated(DateTime val) {
 		this.lastUpdated = val;
 		return this;
 	}
@@ -80,8 +81,8 @@ public class FetchBuilder {
 		return this;
 	}
 
-	public Date getDate() {
-		return date;
+	public LocalDate getLastFetchDate() {
+		return lastFetchDate;
 	};
 
 	public String getBrand() {
@@ -96,7 +97,7 @@ public class FetchBuilder {
 		return lastId;
 	};
 
-	public Date getCreatedDate() {
+	public DateTime getCreatedDate() {
 		return createdDate;
 	};
 
@@ -104,7 +105,7 @@ public class FetchBuilder {
 		return createdBy;
 	};
 
-	public Date getLastUpdated() {
+	public DateTime getLastUpdated() {
 		return lastUpdated;
 	};
 
@@ -121,7 +122,7 @@ public class FetchBuilder {
 	 */
 	public Fetch build() {
 		Fetch obj = new Fetch();
-		obj.setDate(date);
+		obj.setLastFetchDate(lastFetchDate);
 		obj.setBrand(brand);
 		obj.setAdjective(adjective);
 		obj.setLastId(lastId);

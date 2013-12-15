@@ -94,10 +94,9 @@
            <version>3.0.5</version>
       	 </dependency>
 		<dependency>
-			<groupId>org.sculptorgenerator</groupId>
-			<artifactId>sculptor-framework-main</artifactId>
-			<classifier>without-ejb</classifier>
-			<version>${sculptor-version}</version>
+    		<groupId>org.sculptorgenerator</groupId>
+    		<artifactId>sculptor-framework-mongodb</artifactId>
+    		<version>${sculptor-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>

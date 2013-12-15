@@ -1,21 +1,29 @@
 package fr.ece.tweetstats.core.repositoryimpl;
 
+import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
 import fr.ece.tweetstats.core.domain.Fetch;
 import fr.ece.tweetstats.core.domain.FetchRepository;
 import fr.ece.tweetstats.core.domain.Tweet;
 import fr.ece.tweetstats.core.exception.FetchNotFoundException;
+import fr.ece.tweetstats.core.mapper.FetchMapper;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.annotation.PostConstruct;
 import org.sculptor.framework.accessapi.DeleteAccess;
-import org.sculptor.framework.accessapi.FindAllAccess2;
+import org.sculptor.framework.accessapi.FindAllAccess;
 import org.sculptor.framework.accessapi.FindByIdAccess;
 import org.sculptor.framework.accessapi.SaveAccess;
-import org.sculptor.framework.accessimpl.jpa2.JpaDeleteAccessImpl;
-import org.sculptor.framework.accessimpl.jpa2.JpaFindAllAccessImplGeneric;
-import org.sculptor.framework.accessimpl.jpa2.JpaFindByIdAccessImpl;
-import org.sculptor.framework.accessimpl.jpa2.JpaSaveAccessImpl;
-import org.springframework.orm.jpa.support.JpaDaoSupport;
+import org.sculptor.framework.accessimpl.mongodb.DataMapper;
+import org.sculptor.framework.accessimpl.mongodb.DbManager;
+import org.sculptor.framework.accessimpl.mongodb.EnumMapper;
+import org.sculptor.framework.accessimpl.mongodb.IndexSpecification;
+import org.sculptor.framework.accessimpl.mongodb.JodaDateTimeMapper;
+import org.sculptor.framework.accessimpl.mongodb.JodaLocalDateMapper;
+import org.sculptor.framework.accessimpl.mongodb.MongoDbDeleteAccessImpl;
+import org.sculptor.framework.accessimpl.mongodb.MongoDbFindAllAccessImpl;
+import org.sculptor.framework.accessimpl.mongodb.MongoDbFindByIdAccessImpl;
+import org.sculptor.framework.accessimpl.mongodb.MongoDbSaveAccessImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Generated base class for implementation of Repository for Fetch
@@ -28,7 +36,7 @@ import org.springframework.orm.jpa.support.JpaDaoSupport;
  * </pre>
  * 
  */
-public abstract class FetchRepositoryBase extends JpaDaoSupport implements FetchRepository {
+public abstract class FetchRepositoryBase implements FetchRepository {
 
 	public FetchRepositoryBase() {
 	}
@@ -36,9 +44,9 @@ public abstract class FetchRepositoryBase extends JpaDaoSupport implements Fetch
 	/**
 	 * Delegates to {@link org.sculptor.framework.accessapi.FindByIdAccess}
 	 */
-	public Fetch findById(Long id) throws FetchNotFoundException {
+	public Fetch findById(String id) throws FetchNotFoundException {
 
-		FindByIdAccess<Fetch, Long> ao = createFindByIdAccess();
+		FindByIdAccess<Fetch, String> ao = createFindByIdAccess();
 
 		ao.setId(id);
 		ao.execute();
@@ -52,12 +60,8 @@ public abstract class FetchRepositoryBase extends JpaDaoSupport implements Fetch
 	 * Delegates to {@link org.sculptor.framework.accessapi.FindAllAccess}
 	 */
 	public List<Fetch> findAll() {
-		return findAll(getPersistentClass());
-	}
 
-	public <R> List<R> findAll(Class<R> resultType) {
-
-		FindAllAccess2<R> ao = createFindAllAccess(resultType);
+		FindAllAccess<Fetch> ao = createFindAllAccess();
 
 		ao.execute();
 		return ao.getResult();
@@ -88,58 +92,64 @@ public abstract class FetchRepositoryBase extends JpaDaoSupport implements Fetch
 
 	public abstract List<Tweet> fetchResults();
 
-	private EntityManager entityManager;
+	@Autowired
+	private DbManager dbManager;
 
-	/**
-	 * Dependency injection
-	 */
-	@PersistenceContext(unitName = "TweetStatsEntityManagerFactory")
-	protected void setEntityManagerDependency(EntityManager entityManager) {
-		this.entityManager = entityManager;
-		// for JpaDaoSupport, JpaTemplate
-		setEntityManager(entityManager);
+	protected DbManager getDbManager() {
+		return dbManager;
 	}
 
-	protected EntityManager getEntityManager() {
-		return entityManager;
-	}
-
-	protected FindByIdAccess<Fetch, Long> createFindByIdAccess() {
-		JpaFindByIdAccessImpl<Fetch, Long> ao = new JpaFindByIdAccessImpl<Fetch, Long>(getPersistentClass());
-		ao.setEntityManager(getEntityManager());
+	protected FindByIdAccess<Fetch, String> createFindByIdAccess() {
+		MongoDbFindByIdAccessImpl<Fetch, String> ao = new MongoDbFindByIdAccessImpl<Fetch, String>(getPersistentClass());
+		ao.setDbManager(dbManager);
+		ao.setDataMapper(FetchMapper.getInstance());
+		ao.setAdditionalDataMappers(getAdditionalDataMappers());
 		return ao;
 	}
 
-	// convenience method
-	protected FindAllAccess2<Fetch> createFindAllAccess() {
-		return createFindAllAccess(getPersistentClass(), getPersistentClass());
-	}
-
-	// convenience method
-	protected <R> FindAllAccess2<R> createFindAllAccess(Class<R> resultType) {
-		return createFindAllAccess(getPersistentClass(), resultType);
-	}
-
-	protected <T, R> FindAllAccess2<R> createFindAllAccess(Class<T> type, Class<R> resultType) {
-		JpaFindAllAccessImplGeneric<T, R> ao = new JpaFindAllAccessImplGeneric<T, R>(type, resultType);
-		ao.setEntityManager(getEntityManager());
+	protected FindAllAccess<Fetch> createFindAllAccess() {
+		MongoDbFindAllAccessImpl<Fetch> ao = new MongoDbFindAllAccessImpl<Fetch>(getPersistentClass());
+		ao.setDbManager(dbManager);
+		ao.setDataMapper(FetchMapper.getInstance());
+		ao.setAdditionalDataMappers(getAdditionalDataMappers());
 		return ao;
 	}
 
 	protected SaveAccess<Fetch> createSaveAccess() {
-		JpaSaveAccessImpl<Fetch> ao = new JpaSaveAccessImpl<Fetch>(getPersistentClass());
-		ao.setEntityManager(getEntityManager());
+		MongoDbSaveAccessImpl<Fetch> ao = new MongoDbSaveAccessImpl<Fetch>(getPersistentClass());
+		ao.setDbManager(dbManager);
+		ao.setDataMapper(FetchMapper.getInstance());
+		ao.setAdditionalDataMappers(getAdditionalDataMappers());
 		return ao;
 	}
 
 	protected DeleteAccess<Fetch> createDeleteAccess() {
-		JpaDeleteAccessImpl<Fetch> ao = new JpaDeleteAccessImpl<Fetch>(getPersistentClass());
-		ao.setEntityManager(getEntityManager());
+		MongoDbDeleteAccessImpl<Fetch> ao = new MongoDbDeleteAccessImpl<Fetch>(getPersistentClass());
+		ao.setDbManager(dbManager);
+		ao.setDataMapper(FetchMapper.getInstance());
+		ao.setAdditionalDataMappers(getAdditionalDataMappers());
 		return ao;
 	}
 
 	protected Class<Fetch> getPersistentClass() {
 		return Fetch.class;
+	}
+
+	@SuppressWarnings("unchecked")
+	private org.sculptor.framework.accessimpl.mongodb.DataMapper[] additionalDataMappers = new DataMapper[] {
+			JodaLocalDateMapper.getInstance(), JodaDateTimeMapper.getInstance(), EnumMapper.getInstance() };
+
+	@SuppressWarnings("unchecked")
+	protected DataMapper<Object, DBObject>[] getAdditionalDataMappers() {
+		return additionalDataMappers;
+	}
+
+	@PostConstruct
+	protected void ensureIndex() {
+		DBCollection dbCollection = dbManager.getDBCollection(FetchMapper.getInstance().getDBCollectionName());
+		for (IndexSpecification each : FetchMapper.getInstance().indexes()) {
+			dbCollection.ensureIndex(each.getKeys(), each.getName(), each.isUnique());
+		}
 	}
 
 }

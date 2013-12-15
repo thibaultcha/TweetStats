@@ -1,8 +1,9 @@
 package fr.ece.tweetstats.twitterapi;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+import org.joda.time.LocalDate;
 
 import fr.ece.tweetstats.core.domain.Fetch;
 import fr.ece.tweetstats.core.domain.Tweet;
@@ -52,8 +53,10 @@ public class TwitterAPI {
 			do {
 				result = twitter.search(query);
 				for (Status status : result.getTweets()) {
-					tweetResults.add(new Tweet(new Long(status.getId()), status.getCreatedAt(),
-							status.getText()));
+					tweetResults.add(new Tweet(new Long(status.getId()), 
+											   new LocalDate(status.getCreatedAt().getTime()),
+											   status.getText(),
+											   "place"));
 				}
 			} while ((query = result.nextQuery()) != null);
 
@@ -61,7 +64,7 @@ public class TwitterAPI {
 			e.printStackTrace();
 		}
 		
-		// @TODO Sort tweets by date
+		// TODO Sort tweets by date
 
 		return tweetResults;
 	}
@@ -86,8 +89,7 @@ public class TwitterAPI {
 			Fetch fetch = new Fetch();
 			fetch.setAdjective(adjs.get(i));
 			fetch.setBrand(brand);
-			fetch.setCreatedDate(new Date());
-			fetch.setDate(new Date());
+			fetch.setLastFetchDate(new LocalDate());
 			for (Tweet tweet : tweets) {
 				fetch.addResult(tweet);
 			}

@@ -14,7 +14,7 @@ public interface FetchRepository {
 
 	public List<Tweet> fetchResults();
 
-	public Fetch findById(Long id) throws FetchNotFoundException;
+	public Fetch findById(String id) throws FetchNotFoundException;
 
 	public List<Fetch> findAll();
 

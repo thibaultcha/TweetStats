@@ -9,7 +9,7 @@ Application TweetStats {
 		
 		Entity Fetch {
 			scaffold
-			Date date
+			Date lastFetchDate
 			String brand
 			String adjective
 			Long lastId
@@ -25,6 +25,7 @@ Application TweetStats {
 			Long tweetId
 			Date date
 			String message
+			String location
 		}
 	}
 }

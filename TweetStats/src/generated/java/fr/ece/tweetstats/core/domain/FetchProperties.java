@@ -24,8 +24,8 @@ public class FetchProperties {
 		return sharedInstance.id();
 	}
 
-	public static Property<Fetch> date() {
-		return sharedInstance.date();
+	public static Property<Fetch> lastFetchDate() {
+		return sharedInstance.lastFetchDate();
 	}
 
 	public static Property<Fetch> brand() {
@@ -94,11 +94,11 @@ public class FetchProperties {
 		}
 
 		public Property<T> id() {
-			return new LeafProperty<T>(getParentPath(), "id", false, owningClass);
+			return new LeafProperty<T>(getParentPath(), "_id", false, owningClass);
 		}
 
-		public Property<T> date() {
-			return new LeafProperty<T>(getParentPath(), "date", false, owningClass);
+		public Property<T> lastFetchDate() {
+			return new LeafProperty<T>(getParentPath(), "lastFetchDate", false, owningClass);
 		}
 
 		public Property<T> brand() {
