@@ -109,16 +109,8 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         fetchButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         fetchPanel.add(fetchButton);
         
-        fetchButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				List<Fetch> fetches = controller.doFetchAndSave("RATP", Arrays.asList("retard", "grève", "service"));
-				// update chart!
-			}
-		});
-        
         fetchPanel.add(Box.createVerticalStrut(10));
-        JComboBox subjectList = new JComboBox();
+        subjectList = new JComboBox();
         subjectList.addItem("RATP");
         subjectList.addItem("AlloResto");
         fetchPanel.add(subjectList);
@@ -211,8 +203,6 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         
         //######################## BarChartPanel ########################
         barChartPanel = new JPanel(new FlowLayout());
-        barChart = new BarChart(itemList);
-        barChartPanel.add(barChart.getChartPanel());
         barChartPanel.setBackground(Color.WHITE);
         
         tabbedPane.addTab("Bar Chart", barChartPanel);
@@ -264,7 +254,13 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
             } 
         }
         else if(source == fetchButton) {
-            barChart = new BarChart(itemList);
+        	List<String> arrayAdj = new ArrayList<String>();
+        	for(int i = 0; i < itemList.size(); i++) {
+        		arrayAdj.add(itemList.get(i).toString());
+        	}
+
+        	List<Fetch> fetches = controller.doFetchAndSave(subjectList.getSelectedItem().toString(), arrayAdj);
+            barChart = new BarChart(fetches);
             barChartPanel.removeAll();
             barChartPanel.add(barChart.getChartPanel());
             barChartPanel.validate();

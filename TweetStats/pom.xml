@@ -87,7 +87,11 @@
 	</build>
 
 	<dependencies>
-	    
+	      <dependency>
+			  <groupId>it.tidalwave.geo</groupId>
+			  <artifactId>it-tidalwave-geo-viewer-spi-jxmapviewer</artifactId>
+			  <version>1.0.30</version>
+		  </dependency>
 	      <dependency>
            <groupId>org.twitter4j</groupId>
            <artifactId>twitter4j-core</artifactId>
