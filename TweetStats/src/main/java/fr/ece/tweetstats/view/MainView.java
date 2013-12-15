@@ -13,6 +13,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -42,14 +43,15 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
     private JButton addItemButton;
     private JButton removeItemButton;
     private JButton fetchButton;
-    private DefaultListModel<String> itemList;
-    private JList<String> elementJList;
+    private DefaultListModel itemList;
+    private JList elementJList;
     private int count;
     private int loopVar;
     private BarChart barChart;
     private LineChart lineChart;
     private JPanel barChartPanel;
     private JPanel lineChartPanel;
+    private JComboBox subjectList;
     
     @Autowired
     private ViewController controller;
@@ -86,7 +88,7 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         flowFetchPanel.setLayout(new FlowLayout());
         Border fetchFrame = BorderFactory.createTitledBorder("Fetch area");
         flowFetchPanel.setBorder(fetchFrame);
-        this.setMySize(flowFetchPanel, 300, 90);
+        this.setMySize(flowFetchPanel, 300, 120);
         flowFetchPanel.setBackground(Color.WHITE);
         
         //######################## FetchPanel ########################
@@ -100,6 +102,13 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         this.setMySize(fetchButton, 100, 40);
         fetchButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         fetchPanel.add(fetchButton);
+        
+        fetchPanel.add(Box.createVerticalStrut(10));
+        JComboBox subjectList = new JComboBox();
+        subjectList.addItem("RATP");
+        subjectList.addItem("AlloResto");
+        fetchPanel.add(subjectList);
+        
         flowFetchPanel.add(fetchPanel);
         
         asidePanel.add(flowFetchPanel);
@@ -117,7 +126,7 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         JListPanel.setLayout(new BoxLayout(JListPanel, BoxLayout.Y_AXIS));
         JListPanel.setBackground(Color.WHITE);
         
-        itemList = new DefaultListModel<String>();
+        itemList = new DefaultListModel();
 
         itemList.addElement("putain");
         itemList.addElement("fuck");
@@ -126,7 +135,7 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         itemList.addElement("énervant");
         itemList.addElement("merde");
         
-        elementJList = new JList<String>(itemList);
+        elementJList = new JList(itemList);
         elementJList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         elementJList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         elementJList.setSelectedIndex(0);
