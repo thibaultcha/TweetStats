@@ -3,14 +3,17 @@ package fr.ece.tweetstats.core.repositoryimpl;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import fr.ece.tweetstats.core.domain.Fetch;
+import fr.ece.tweetstats.core.domain.FetchProperties;
 import fr.ece.tweetstats.core.domain.FetchRepository;
-import fr.ece.tweetstats.core.domain.Tweet;
 import fr.ece.tweetstats.core.exception.FetchNotFoundException;
 import fr.ece.tweetstats.core.mapper.FetchMapper;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import org.sculptor.framework.accessapi.ConditionalCriteria;
+import org.sculptor.framework.accessapi.ConditionalCriteriaBuilder;
 import org.sculptor.framework.accessapi.DeleteAccess;
 import org.sculptor.framework.accessapi.FindAllAccess;
+import org.sculptor.framework.accessapi.FindByConditionAccess;
 import org.sculptor.framework.accessapi.FindByIdAccess;
 import org.sculptor.framework.accessapi.SaveAccess;
 import org.sculptor.framework.accessimpl.mongodb.DataMapper;
@@ -21,6 +24,7 @@ import org.sculptor.framework.accessimpl.mongodb.JodaDateTimeMapper;
 import org.sculptor.framework.accessimpl.mongodb.JodaLocalDateMapper;
 import org.sculptor.framework.accessimpl.mongodb.MongoDbDeleteAccessImpl;
 import org.sculptor.framework.accessimpl.mongodb.MongoDbFindAllAccessImpl;
+import org.sculptor.framework.accessimpl.mongodb.MongoDbFindByConditionAccessImpl;
 import org.sculptor.framework.accessimpl.mongodb.MongoDbFindByIdAccessImpl;
 import org.sculptor.framework.accessimpl.mongodb.MongoDbSaveAccessImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +43,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 public abstract class FetchRepositoryBase implements FetchRepository {
 
 	public FetchRepositoryBase() {
+	}
+
+	/**
+	 * Delegates to {@link org.sculptor.framework.accessapi.FindByConditionAccess}
+	 */
+	protected List<Fetch> findByCondition(List<ConditionalCriteria> condition) {
+
+		FindByConditionAccess<Fetch> ao = createFindByConditionAccess();
+
+		ao.setCondition(condition);
+		ao.execute();
+		return ao.getResult();
 	}
 
 	/**
@@ -90,13 +106,27 @@ public abstract class FetchRepositoryBase implements FetchRepository {
 		ao.execute();
 	}
 
-	public abstract List<Tweet> fetchResults();
+	public List<Fetch> findByBrand(String brand) {
+		List<ConditionalCriteria> condition = ConditionalCriteriaBuilder.criteriaFor(Fetch.class)
+				.withProperty(FetchProperties.brand()).eq(brand).build();
+
+		List<Fetch> result = findByCondition(condition);
+		return result;
+	}
 
 	@Autowired
 	private DbManager dbManager;
 
 	protected DbManager getDbManager() {
 		return dbManager;
+	}
+
+	protected FindByConditionAccess<Fetch> createFindByConditionAccess() {
+		MongoDbFindByConditionAccessImpl<Fetch> ao = new MongoDbFindByConditionAccessImpl<Fetch>(getPersistentClass());
+		ao.setDbManager(dbManager);
+		ao.setDataMapper(FetchMapper.getInstance());
+		ao.setAdditionalDataMappers(getAdditionalDataMappers());
+		return ao;
 	}
 
 	protected FindByIdAccess<Fetch, String> createFindByIdAccess() {

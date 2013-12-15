@@ -4,8 +4,8 @@ Application TweetStats {
 	Module core {
 		
 		Service FetchService {
-             protected fetchResults => FetchRepository.fetchResults;
-        }
+			getFetchesWithBrand delegates to FetchRepository.findByBrand;
+		}
 		
 		Entity Fetch {
 			scaffold
@@ -15,17 +15,18 @@ Application TweetStats {
 			Long lastId
 			- Set<Tweet> results
 			
-			Repository FetchRepository { 
-                List<@Tweet> fetchResults();
-            }
+			Repository FetchRepository {
+				List<@Fetch> findByBrand(String brand);
+				protected findByCondition;
+			}
 		}
 
 		ValueObject Tweet {	
 			not aggregateRoot
-			Long tweetId
+			Long tweetId nullable
 			Date date
-			String message
-			String location
+			String message nullable
+			String location nullable
 		}
 	}
 }

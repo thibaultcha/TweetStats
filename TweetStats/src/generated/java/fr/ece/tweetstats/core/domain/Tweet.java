@@ -26,21 +26,22 @@ public class Tweet extends AbstractDomainObject {
 
 	public Tweet(Long tweetId, LocalDate date, String message, String location) {
 		super();
-		Validate.notNull(tweetId, "Tweet.tweetId must not be null");
 		this.tweetId = tweetId;
 		Validate.notNull(date, "Tweet.date must not be null");
 		this.date = date;
-		Validate.notNull(message, "Tweet.message must not be null");
 		this.message = message;
-		Validate.notNull(location, "Tweet.location must not be null");
 		this.location = location;
+	}
+
+	public Tweet(LocalDate date) {
+		this(null, date, null, null);
 	}
 
 	/**
 	 * Creates a new Tweet. Typically used with static import to achieve fluent interface.
 	 */
-	public static Tweet tweet(Long tweetId, LocalDate date, String message, String location) {
-		return new Tweet(tweetId, date, message, location);
+	public static Tweet tweet(LocalDate date) {
+		return new Tweet(null, date, null, null);
 	}
 
 	public String getId() {

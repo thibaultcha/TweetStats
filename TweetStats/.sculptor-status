@@ -1,26 +1,27 @@
-#Sculptor created the following 24 files
-#Sat Dec 14 14:45:27 CET 2013
+#Sculptor created the following 25 files
+#Sun Dec 15 15:48:40 CET 2013
 src/generated/resources/generated-spring.properties=846b5e45b5abc583fb3f5965f7b12144
 src/generated/java/fr/ece/tweetstats/core/mapper/FetchMapper.java=72597b6574c51d57f71d09fd27d531c2
 src/test/generated/resources/applicationContext-test.xml=71a6d2580aad23736fad949fd383a2b8
 src/generated/resources/mongodb.xml=52587064c3a6df06ea5e47d70c4fb1c0
 src/generated/resources/Interceptor.xml=bf39cbc0823758b2d9da3d3c945658e6
 src/generated/java/fr/ece/tweetstats/core/domain/FetchBuilder.java=3f40be91ed93b0e771a40750a62dbf0b
-src/generated/java/fr/ece/tweetstats/core/serviceimpl/FetchServiceImpl.java=5e986718c63cffdd7e55d0435e609327
-src/generated/java/fr/ece/tweetstats/core/repositoryimpl/FetchRepositoryBase.java=fc5f6288afeb96e6d92ba56770b92233
+src/generated/java/fr/ece/tweetstats/core/serviceimpl/FetchServiceImpl.java=33ac9361aaacdad59bc2b832fbd654fe
+src/generated/java/fr/ece/tweetstats/core/repositoryimpl/FetchRepositoryBase.java=d68ba529039b56e879ce01d14ad418d9
 src/generated/java/fr/ece/tweetstats/core/domain/TweetBuilder.java=7d9331a0ba96c4eb286e40a993f8cb4e
 src/generated/java/fr/ece/tweetstats/core/mapper/TweetMapper.java=df372abb56b0c67be14a9c95abd08ab3
 src/generated/resources/pub-sub.xml=d7317bf027925e47206536f8cbf5e300
 src/generated/java/fr/ece/tweetstats/core/domain/TweetProperties.java=17c08c812deb498ae872c64c3dd37ff5
-src/generated/java/fr/ece/tweetstats/core/serviceapi/FetchService.java=59143914b223053fa2474891f707358e
+src/generated/java/fr/ece/tweetstats/core/serviceapi/FetchService.java=97e954c58c49ec54ac90c77a170489c4
+src/main/java/fr/ece/tweetstats/core/repositoryimpl/FetchRepositoryImpl.java=4c1a1b8a184684015637a8f8c52f990c
 src/generated/resources/beanRefContext.xml=9cad67be5f679d0ab3d16e2b1498117f
-src/generated/java/fr/ece/tweetstats/core/domain/FetchRepository.java=157d16e33fdf6da80511a9b6f32d01c9
+src/generated/java/fr/ece/tweetstats/core/domain/FetchRepository.java=2e6a2083c87488d9bec4bf8995b6503c
 src/generated/resources/applicationContext.xml=4e102f99a26c9f188b0ce1edbd956fc6
 src/generated/java/fr/ece/tweetstats/core/domain/Fetch.java=7b0ac67fe7d156efeb9e023e7391f04e
 src/test/generated/resources/mongodb-test.xml=91fd8a6e33a9c98bf48457ca464b8db7
 src/generated/java/fr/ece/tweetstats/core/domain/FetchProperties.java=9150e75a1f124dc9b92e574907ad9d9d
-src/test/java/fr/ece/tweetstats/core/serviceapi/FetchServiceTest.java=073bf912df35c93679856c78b74d29b8
-src/generated/java/fr/ece/tweetstats/core/domain/Tweet.java=3278f89771cd0bd496fedbe687fa06fd
+src/test/java/fr/ece/tweetstats/core/serviceapi/FetchServiceTest.java=9b407bff215583795ae5c5aee40bb5e4
+src/generated/java/fr/ece/tweetstats/core/domain/Tweet.java=7ec404a4cf2b7154434c0f714fb23620
 src/test/generated/resources/Interceptor-test.xml=4fcd82e7768a94e461d0ea191789a3ce
 src/generated/java/fr/ece/tweetstats/core/exception/FetchNotFoundException.java=7721079c8df5b2d50b248272066e958d
-src/test/generated/java/fr/ece/tweetstats/core/serviceapi/FetchServiceTestBase.java=ac3e6465435c83c3a3b7e92116024474
+src/test/generated/java/fr/ece/tweetstats/core/serviceapi/FetchServiceTestBase.java=f07231f53eecec97d2ae63180cbf3b95

@@ -26,7 +26,10 @@ import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import fr.ece.tweetstats.view.BarChart;
+import fr.ece.tweetstats.view.LineChart;
 
+@org.springframework.stereotype.Component
 public class MainView extends JFrame implements ActionListener, ListSelectionListener {
     private JTextField addItemTextField;
     private JButton addItemButton;

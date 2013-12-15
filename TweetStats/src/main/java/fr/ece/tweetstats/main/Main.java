@@ -5,55 +5,46 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import javax.naming.ldap.Control;
 import javax.swing.SwingUtilities;
 
+import org.joda.time.LocalDate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+import fr.ece.tweetstats.controller.ViewController;
 import fr.ece.tweetstats.core.domain.Fetch;
 import fr.ece.tweetstats.core.domain.Tweet;
 import fr.ece.tweetstats.core.serviceapi.FetchService;
+import fr.ece.tweetstats.core.serviceimpl.FetchServiceImpl;
 import fr.ece.tweetstats.twitterapi.TweetDateComparator;
 import fr.ece.tweetstats.twitterapi.TweetIdComparator;
 import fr.ece.tweetstats.twitterapi.TwitterAPI;
 
+@Component
 public class Main {
 
-	public static void main(String[] args) {
-		 /*
-		 SwingUtilities.invokeLater(new Runnable() {
-		 	@Override public void run() { MainView mainView = new MainView(); }
-		 });
-		 */
-		 
-		int count = 0;
-		List<String> adjectives = Arrays.asList("grève", "retard");
-		// Synchrone call to Twitter API
-		List<Fetch> fetchResults = TwitterAPI.getByBrandAndAdjectives("RATP",
-				adjectives);
-		for (Fetch fetch : fetchResults) {
-			System.out.println("--- " + fetch.getAdjective() + " ---");
-			count += fetch.getResults().size();
-			for (Tweet tweet : fetch.getResults()) {
-				System.out.println(tweet.getTweetId() + "\t" + tweet.getMessage().replace("\n", " "));
-			}
-		}
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
 
-		System.out.println("Total fetched tweets: " + count);
+        Main p = context.getBean(Main.class);
+        p.start(args);
+    }
 
-		
-		/* LAST ID + SORT */
-		/*
-		List<Tweet> tweetResults = TwitterAPI.getByBrandAndAdjective(
-				fetchResults.get(0).getBrand(), fetchResults.get(0)
-						.getAdjective(), fetchResults.get(0).getLastId());
-		
-		System.out.println("--- " + fetchResults.get(0).getAdjective()
-				+ " lastId: " + fetchResults.get(0).getLastId() + " ---");
-		for (Tweet tweet : tweetResults) {
-			System.out.println(tweet.getTweetId() + "\t" + tweet.getMessage().replace("\n", " "));
-		}*/
-		
-		
-		/* MONGODB */
-		
-	}
-
+    @Autowired
+    private ViewController controller;
+    private void start(String[] args) {
+    	Fetch fetch = new Fetch();
+    	fetch.setAdjective("retard");
+    	fetch.setBrand("ALLORESTO");
+    	fetch.setLastFetchDate(new LocalDate());
+    	fetch.setLastId(1234L);
+    	controller.saveFetch(fetch);
+        //System.out.println("my beans method: " + myBean.getStr());
+    }
+   
 }
+

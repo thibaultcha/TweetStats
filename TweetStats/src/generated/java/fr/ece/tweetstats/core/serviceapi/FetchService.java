@@ -11,6 +11,8 @@ public interface FetchService {
 
 	public final static String BEAN_ID = "fetchService";
 
+	public List<Fetch> getFetchesWithBrand(String brand);
+
 	public Fetch findById(String id) throws FetchNotFoundException;
 
 	public List<Fetch> findAll();

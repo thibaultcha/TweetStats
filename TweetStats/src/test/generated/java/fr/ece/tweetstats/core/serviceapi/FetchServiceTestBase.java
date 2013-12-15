@@ -5,6 +5,8 @@ package fr.ece.tweetstats.core.serviceapi;
  */
 public interface FetchServiceTestBase {
 
+	public void testGetFetchesWithBrand() throws Exception;
+
 	public void testFindById() throws Exception;
 
 	public void testFindAll() throws Exception;

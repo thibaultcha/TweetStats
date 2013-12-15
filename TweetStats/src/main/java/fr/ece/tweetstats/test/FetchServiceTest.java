@@ -5,16 +5,13 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.sculptor.framework.accessimpl.mongodb.DbManager;
-import org.sculptor.framework.event.EventBus;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
@@ -69,6 +66,7 @@ public class FetchServiceTest extends AbstractJUnit4SpringContextTests implement
 	@Override
 	public void testFindById() throws Exception {
 		// TODO Auto-generated method stub
+		
 		fail();
 	}
 
@@ -86,6 +84,12 @@ public class FetchServiceTest extends AbstractJUnit4SpringContextTests implement
 
 	@Override
 	public void testDelete() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void testGetFetchesWithBrand() throws Exception {
 		// TODO Auto-generated method stub
 		
 	}

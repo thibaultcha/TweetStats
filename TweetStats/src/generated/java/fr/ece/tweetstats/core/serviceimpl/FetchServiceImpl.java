@@ -2,10 +2,11 @@ package fr.ece.tweetstats.core.serviceimpl;
 
 import fr.ece.tweetstats.core.domain.Fetch;
 import fr.ece.tweetstats.core.domain.FetchRepository;
-import fr.ece.tweetstats.core.domain.Tweet;
 import fr.ece.tweetstats.core.exception.FetchNotFoundException;
 import fr.ece.tweetstats.core.serviceapi.FetchService;
+
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,10 +27,10 @@ public class FetchServiceImpl implements FetchService {
 	}
 
 	/**
-	 * Delegates to {@link fr.ece.tweetstats.core.domain.FetchRepository#fetchResults}
+	 * Delegates to {@link fr.ece.tweetstats.core.domain.FetchRepository#findByBrand}
 	 */
-	protected List<Tweet> fetchResults() {
-		return fetchRepository.fetchResults();
+	public List<Fetch> getFetchesWithBrand(String brand) {
+		return fetchRepository.findByBrand(brand);
 	}
 
 	/**

@@ -53,6 +53,12 @@ public class FetchServiceTest extends AbstractJUnit4SpringContextTests implement
 	}
 
 	@Test
+	public void testGetFetchesWithBrand() throws Exception {
+		// TODO Auto-generated method stub
+		fail("testGetFetchesWithBrand not implemented");
+	}
+
+	@Test
 	public void testFindById() throws Exception {
 		// TODO Auto-generated method stub
 		fail("testFindById not implemented");
