@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -26,23 +27,32 @@ import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.joda.time.LocalDate;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import fr.ece.tweetstats.controller.ViewController;
+import fr.ece.tweetstats.core.domain.Fetch;
 import fr.ece.tweetstats.view.BarChart;
 import fr.ece.tweetstats.view.LineChart;
 
 @org.springframework.stereotype.Component
 public class MainView extends JFrame implements ActionListener, ListSelectionListener {
-    private JTextField addItemTextField;
+	private static final long serialVersionUID = 1L;
+	private JTextField addItemTextField;
     private JButton addItemButton;
     private JButton removeItemButton;
     private JButton fetchButton;
-    private DefaultListModel itemList;
-    private JList elementJList;
+    private DefaultListModel<String> itemList;
+    private JList<String> elementJList;
     private int count;
     private int loopVar;
     private BarChart barChart;
     private LineChart lineChart;
     private JPanel barChartPanel;
     private JPanel lineChartPanel;
+    
+    @Autowired
+    private ViewController controller;
     
     public MainView() {
         super("Tweetstats");
@@ -107,7 +117,7 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         JListPanel.setLayout(new BoxLayout(JListPanel, BoxLayout.Y_AXIS));
         JListPanel.setBackground(Color.WHITE);
         
-        itemList = new DefaultListModel();
+        itemList = new DefaultListModel<String>();
 
         itemList.addElement("putain");
         itemList.addElement("fuck");
@@ -116,7 +126,7 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         itemList.addElement("énervant");
         itemList.addElement("merde");
         
-        elementJList = new JList(itemList);
+        elementJList = new JList<String>(itemList);
         elementJList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         elementJList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         elementJList.setSelectedIndex(0);

@@ -2,14 +2,11 @@ package fr.ece.tweetstats.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
-import org.springframework.test.context.ContextConfiguration;
 
 import fr.ece.tweetstats.core.domain.Fetch;
 import fr.ece.tweetstats.core.serviceapi.FetchService;
 
-@Controller
+@Component
 public class ViewController {
 
 	@Autowired
@@ -19,6 +16,7 @@ public class ViewController {
 		
 	}
 	
+	// Méthode example! save dans mongodb (le serveur doit être lancé sur localhost:27017 (adresse par défaut)
 	public void saveFetch(Fetch fetch) {
 		fetchService.save(fetch);
 	}
