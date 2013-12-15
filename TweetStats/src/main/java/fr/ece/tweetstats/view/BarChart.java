@@ -43,7 +43,7 @@ public class BarChart {
 
         // column keys...
         for(int i = 0; i < itemList.size(); i++) {
-            dataset.addValue(10, "first", itemList.get(i).toString());
+            dataset.addValue(10, "Words", itemList.get(i).toString());
         }
         
         return dataset;

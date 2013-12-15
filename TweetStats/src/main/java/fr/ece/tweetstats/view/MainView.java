@@ -183,7 +183,7 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         
         //######################## LineChartPanel ########################
         lineChartPanel = new JPanel(new FlowLayout());
-        lineChart = new LineChart();
+        lineChart = new LineChart(itemList);
         lineChartPanel.add(lineChart.getChartPanel());
         lineChartPanel.setBackground(Color.WHITE);
         
