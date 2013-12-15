@@ -26,7 +26,7 @@ public class BarChart {
     	final CategoryDataset dataset = updateDataset(fetches);
     	
     	final JFreeChart chart = ChartFactory.createBarChart(
-                "Tweetstats",         // chart title
+    			fetches.get(0).getBrand(),         // chart title
                 "Words",               // domain axis label
                 "Number",                  // range axis label
                 dataset,                  // data

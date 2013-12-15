@@ -209,12 +209,12 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         
         //######################## LineChartPanel ########################
         lineChartPanel = new JPanel(new FlowLayout());
-        lineChart = new LineChart(itemList);
-        lineChartPanel.add(lineChart.getChartPanel());
         lineChartPanel.setBackground(Color.WHITE);
         
         tabbedPane.addTab("Line Chart", lineChartPanel);
-
+        
+        //JXMapViewer mapViewer;
+        
         mainViewPanel.add(tabbedPane, BorderLayout.CENTER);
         this.setContentPane(mainViewPanel);
     }
@@ -265,6 +265,12 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
             barChartPanel.add(barChart.getChartPanel());
             barChartPanel.validate();
             barChartPanel.repaint();
+            
+            lineChart = new LineChart(fetches);
+            lineChartPanel.removeAll();
+            lineChartPanel.add(lineChart.getChartPanel());
+            lineChartPanel.validate();
+            lineChartPanel.repaint();
         }
     }
     
