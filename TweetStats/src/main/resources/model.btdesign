@@ -4,7 +4,7 @@ Application TweetStats {
 	Module core {
 		
 		Service FetchService {
-			getFetchesWithBrand delegates to FetchRepository.findByBrand;
+			getFetchesWithBrandAndAdjective delegates to FetchRepository.findByBrandAndAdjective;
 		}
 		
 		Entity Fetch {
@@ -13,10 +13,10 @@ Application TweetStats {
 			String brand
 			String adjective
 			Long lastId
-			- Set<Tweet> results
+			- List<Tweet> results
 			
 			Repository FetchRepository {
-				List<@Fetch> findByBrand(String brand);
+				List<@Fetch> findByBrandAndAdjective(String brand, String adjective);
 				protected findByCondition;
 			}
 		}

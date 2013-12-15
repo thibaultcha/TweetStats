@@ -66,7 +66,6 @@ public class FetchServiceTest extends AbstractJUnit4SpringContextTests implement
 	@Override
 	public void testFindById() throws Exception {
 		// TODO Auto-generated method stub
-		
 		fail();
 	}
 
@@ -88,10 +87,20 @@ public class FetchServiceTest extends AbstractJUnit4SpringContextTests implement
 		
 	}
 
-	@Override
-	public void testGetFetchesWithBrand() throws Exception {
-		// TODO Auto-generated method stub
+	@Test
+	public void testGetFetchesWithBrandAndAdjective() throws Exception {
+		Fetch fetch = new Fetch();
+		fetch.setAdjective("retard");
+		fetch.setBrand("APPLE");
+		fetch.setLastFetchDate(new LocalDate());
+		fetch.setLastId(1L);
+		fetchService.save(fetch);
 		
+		ArrayList<Fetch> fetchedFetches = (ArrayList<Fetch>) fetchService.getFetchesWithBrandAndAdjective("APPLE", "retard");
+		assertEquals(1, fetchedFetches.size());
+		
+		ArrayList<Fetch> fetches = (ArrayList<Fetch>) fetchService.getFetchesWithBrandAndAdjective("BRAND", "rien");
+		assertEquals(0, fetches.size());
 	}
 
 }

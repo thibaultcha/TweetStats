@@ -1,8 +1,8 @@
 package fr.ece.tweetstats.core.domain;
 
 import fr.ece.tweetstats.core.domain.Tweet;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
@@ -29,7 +29,7 @@ public class Fetch extends AbstractDomainObject implements JodaAuditable {
 	private String lastUpdatedBy;
 	private Long version;
 
-	private Set<Tweet> results = new HashSet<Tweet>();
+	private List<Tweet> results = new ArrayList<Tweet>();
 
 	public Fetch() {
 	}
@@ -137,12 +137,12 @@ public class Fetch extends AbstractDomainObject implements JodaAuditable {
 		this.uuid = uuid;
 	}
 
-	public Set<Tweet> getResults() {
+	public List<Tweet> getResults() {
 		return results;
 	};
 
 	@SuppressWarnings("unused")
-	private void setResults(Set<Tweet> results) {
+	private void setResults(List<Tweet> results) {
 		this.results = results;
 	}
 

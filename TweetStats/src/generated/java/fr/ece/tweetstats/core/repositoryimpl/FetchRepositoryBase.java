@@ -106,9 +106,10 @@ public abstract class FetchRepositoryBase implements FetchRepository {
 		ao.execute();
 	}
 
-	public List<Fetch> findByBrand(String brand) {
+	public List<Fetch> findByBrandAndAdjective(String brand, String adjective) {
 		List<ConditionalCriteria> condition = ConditionalCriteriaBuilder.criteriaFor(Fetch.class)
-				.withProperty(FetchProperties.brand()).eq(brand).build();
+				.withProperty(FetchProperties.brand()).eq(brand).and().withProperty(FetchProperties.adjective()).eq(adjective)
+				.build();
 
 		List<Fetch> result = findByCondition(condition);
 		return result;

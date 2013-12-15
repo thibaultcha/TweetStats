@@ -26,6 +26,8 @@
 		<context:exclude-filter type="regex" expression=".*web.*"/>
 	</context:component-scan>
 	
+	
+
 	<bean id="springPropertyConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>

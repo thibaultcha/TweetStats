@@ -11,7 +11,7 @@ public interface FetchRepository {
 
 	public final static String BEAN_ID = "fetchRepository";
 
-	public List<Fetch> findByBrand(String brand);
+	public List<Fetch> findByBrandAndAdjective(String brand, String adjective);
 
 	public Fetch findById(String id) throws FetchNotFoundException;
 

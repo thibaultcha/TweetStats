@@ -1,12 +1,14 @@
 package fr.ece.tweetstats.twitterapi;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.joda.time.LocalDate;
 
 import fr.ece.tweetstats.core.domain.Fetch;
 import fr.ece.tweetstats.core.domain.Tweet;
+import fr.ece.tweetstats.twitterapi.TweetIdComparator;
 import twitter4j.*;
 import twitter4j.auth.AccessToken;
 
@@ -24,7 +26,7 @@ public class TwitterAPI {
 	 * @param adj
 	 * @return List<Tweet>
 	 */
-	public static List<Tweet> getByBrandAndAdjective(String brand, String adj) {
+	protected static List<Tweet> getByBrandAndAdjective(String brand, String adj) {
 		return getByBrandAndAdjective(brand, adj, null);
 	}
 
@@ -36,7 +38,7 @@ public class TwitterAPI {
 	 * @param lastId
 	 * @return
 	 */
-	public static List<Tweet> getByBrandAndAdjective(String brand, String adj, Long lastId) {
+	protected static List<Tweet> getByBrandAndAdjective(String brand, String adj, Long lastId) {
 		ArrayList<Tweet> tweetResults = new ArrayList<Tweet>();	
 		
 		try {
@@ -53,10 +55,14 @@ public class TwitterAPI {
 			do {
 				result = twitter.search(query);
 				for (Status status : result.getTweets()) {
+					String location = "";
+					if (status.getGeoLocation() != null) {
+						location = status.getGeoLocation().toString();
+					}
 					tweetResults.add(new Tweet(new Long(status.getId()), 
 											   new LocalDate(status.getCreatedAt().getTime()),
 											   status.getText(),
-											   "place"));
+											   location));
 				}
 			} while ((query = result.nextQuery()) != null);
 
@@ -64,7 +70,7 @@ public class TwitterAPI {
 			e.printStackTrace();
 		}
 		
-		// TODO Sort tweets by date
+		Collections.sort(tweetResults, new TweetIdComparator());
 
 		return tweetResults;
 	}
@@ -77,8 +83,7 @@ public class TwitterAPI {
 	 * @param adjs
 	 * @return List<Fetch>
 	 */
-	public static List<Fetch> getByBrandAndAdjectives(String brand,
-			List<String> adjs) {
+	public static List<Fetch> getByBrandAndAdjectives(String brand, List<String> adjs) {
 		List<Fetch> fetches = new ArrayList<Fetch>();
 
 		for (int i = 0; i < adjs.size(); i++) {
@@ -107,16 +112,21 @@ public class TwitterAPI {
 	 * @param fetch
 	 * @return
 	 */
-	public static Fetch getFromExistingFetch(Fetch fetch) {
+	public static Fetch getFromExistingFetch(Fetch fetch) {		
 		// retrieve the new tweets since fetch.lastId
-		List<Tweet> newTweets = getByBrandAndAdjective(fetch.getBrand(),
-				fetch.getAdjective(), fetch.getLastId());
+		List<Tweet> newTweets = getByBrandAndAdjective(fetch.getBrand(), fetch.getAdjective(), fetch.getLastId());
 
-		// add those new tweets to the existing Fetch object
-		for (Tweet tweet : newTweets) {
-			fetch.addResult(tweet);
+		// if we have new tweets from lastId
+		if (newTweets.size() > 0) {
+			// add those new tweets to the existing Fetch object
+			for (Tweet tweet : newTweets) {
+				fetch.addResult(tweet);
+			}
+	
+			fetch.setLastFetchDate(new LocalDate());
+			fetch.setLastId(newTweets.get(newTweets.size() - 1).getTweetId());
 		}
-
+		
 		return fetch;
 	}
 

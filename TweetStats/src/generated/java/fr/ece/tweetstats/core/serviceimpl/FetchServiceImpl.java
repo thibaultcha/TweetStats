@@ -4,9 +4,7 @@ import fr.ece.tweetstats.core.domain.Fetch;
 import fr.ece.tweetstats.core.domain.FetchRepository;
 import fr.ece.tweetstats.core.exception.FetchNotFoundException;
 import fr.ece.tweetstats.core.serviceapi.FetchService;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,10 +25,10 @@ public class FetchServiceImpl implements FetchService {
 	}
 
 	/**
-	 * Delegates to {@link fr.ece.tweetstats.core.domain.FetchRepository#findByBrand}
+	 * Delegates to {@link fr.ece.tweetstats.core.domain.FetchRepository#findByBrandAndAdjective}
 	 */
-	public List<Fetch> getFetchesWithBrand(String brand) {
-		return fetchRepository.findByBrand(brand);
+	public List<Fetch> getFetchesWithBrandAndAdjective(String brand, String adjective) {
+		return fetchRepository.findByBrandAndAdjective(brand, adjective);
 	}
 
 	/**

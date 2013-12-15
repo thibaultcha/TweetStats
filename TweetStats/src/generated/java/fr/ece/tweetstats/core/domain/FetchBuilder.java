@@ -2,8 +2,8 @@ package fr.ece.tweetstats.core.domain;
 
 import fr.ece.tweetstats.core.domain.Fetch;
 import fr.ece.tweetstats.core.domain.Tweet;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
@@ -21,7 +21,7 @@ public class FetchBuilder {
 	private DateTime lastUpdated;
 	private String lastUpdatedBy;
 
-	private Set<Tweet> results = new HashSet<Tweet>();
+	private List<Tweet> results = new ArrayList<Tweet>();
 
 	/**
 	 * Static factory method for FetchBuilder
@@ -113,7 +113,7 @@ public class FetchBuilder {
 		return lastUpdatedBy;
 	};
 
-	public Set<Tweet> getResults() {
+	public List<Tweet> getResults() {
 		return results;
 	};
 

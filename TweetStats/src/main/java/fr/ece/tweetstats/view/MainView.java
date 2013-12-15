@@ -7,6 +7,12 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -102,6 +108,14 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         this.setMySize(fetchButton, 100, 40);
         fetchButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         fetchPanel.add(fetchButton);
+        
+        fetchButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				List<Fetch> fetches = controller.doFetchAndSave("RATP", Arrays.asList("retard", "grève", "service"));
+				// update chart!
+			}
+		});
         
         fetchPanel.add(Box.createVerticalStrut(10));
         JComboBox subjectList = new JComboBox();

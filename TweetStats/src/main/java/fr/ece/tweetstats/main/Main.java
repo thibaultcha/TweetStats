@@ -21,8 +21,7 @@ public class Main {
     private MainView view;
 	private static ApplicationContext context;
     private void start(String[] args) {
-
+    	
     }
 
 }
-
