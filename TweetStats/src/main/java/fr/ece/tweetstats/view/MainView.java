@@ -8,11 +8,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -34,13 +30,10 @@ import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.ece.tweetstats.controller.ViewController;
 import fr.ece.tweetstats.core.domain.Fetch;
-import fr.ece.tweetstats.view.BarChart;
-import fr.ece.tweetstats.view.LineChart;
 
 @org.springframework.stereotype.Component
 public class MainView extends JFrame implements ActionListener, ListSelectionListener {
@@ -57,10 +50,12 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
     private LineChart lineChart;
     private JPanel barChartPanel;
     private JPanel lineChartPanel;
+    private JPanel mapChartPanel;
     private JComboBox subjectList;
     
     @Autowired
     private ViewController controller;
+	
     
     public MainView() {
         super("Tweetstats");
@@ -213,7 +208,12 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         
         tabbedPane.addTab("Line Chart", lineChartPanel);
         
+      //######################## MapChartPanel ########################
+        mapChartPanel = new JPanel(new FlowLayout());
+        mapChartPanel.setBackground(Color.WHITE);
         //JXMapViewer mapViewer;
+        
+        tabbedPane.addTab("Map Chart", mapChartPanel);
         
         mainViewPanel.add(tabbedPane, BorderLayout.CENTER);
         this.setContentPane(mainViewPanel);
