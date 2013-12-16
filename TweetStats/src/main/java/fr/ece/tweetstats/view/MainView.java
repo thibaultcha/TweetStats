@@ -7,9 +7,10 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
-
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -36,6 +37,7 @@ import fr.ece.tweetstats.controller.ViewController;
 import fr.ece.tweetstats.core.domain.Fetch;
 
 @org.springframework.stereotype.Component
+
 public class MainView extends JFrame implements ActionListener, ListSelectionListener {
 	private static final long serialVersionUID = 1L;
 	private JTextField addItemTextField;
@@ -52,10 +54,12 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
     private JPanel lineChartPanel;
     private JPanel mapChartPanel;
     private JComboBox subjectList;
+    JLabel dateFetchLabel;
+    JLabel totalLabel;
+    int total;
     
     @Autowired
     private ViewController controller;
-	
     
     public MainView() {
         super("Tweetstats");
@@ -179,16 +183,29 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         
         asidePanel.add(addRemoveItemsPanel);
         
+        //######################## FlowInformationPanel ########################
+        JPanel flowInformationPanel = new JPanel();
+        flowInformationPanel.setLayout(new FlowLayout());
+        Border informationFrame = BorderFactory.createTitledBorder("informations");
+        flowInformationPanel.setBorder(informationFrame);
+        flowInformationPanel.setBackground(Color.WHITE);
+        
         //######################## InformationPanel ########################
         JPanel informationPanel = new JPanel();
+        informationPanel.setLayout(new BoxLayout(informationPanel, BoxLayout.Y_AXIS));
         informationPanel.setBackground(Color.WHITE);
-        Border informationFrame = BorderFactory.createTitledBorder("information");
-        informationPanel.setBorder(informationFrame);
         
-        JLabel label = new JLabel("hello");
-        informationPanel.add(label);
+        informationPanel.add(Box.createVerticalStrut(10));
+        totalLabel = new JLabel("Total : " + 0 + " Tweets");
+        informationPanel.add(totalLabel);
         
-        asidePanel.add(informationPanel);
+        informationPanel.add(Box.createVerticalStrut(10));
+        dateFetchLabel = new JLabel("Date : 00/00/00");
+        informationPanel.add(dateFetchLabel);
+        
+        flowInformationPanel.add(informationPanel);
+        
+        asidePanel.add(flowInformationPanel);
         asidePanel.add(Box.createVerticalStrut(8));
         
         mainViewPanel.add(asidePanel, BorderLayout.WEST);
@@ -254,6 +271,7 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
             } 
         }
         else if(source == fetchButton) {
+        	//update chart
         	List<String> arrayAdj = new ArrayList<String>();
         	for(int i = 0; i < itemList.size(); i++) {
         		arrayAdj.add(itemList.get(i).toString());
@@ -271,6 +289,19 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
             lineChartPanel.add(lineChart.getChartPanel());
             lineChartPanel.validate();
             lineChartPanel.repaint();
+            
+           //update information
+           Calendar today = Calendar.getInstance();
+           today.set(Calendar.HOUR_OF_DAY, 0);
+           SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+           String formattedDate = sdf.format(today.getTime());
+    	   dateFetchLabel.setText("Date : " + formattedDate);
+    	   
+    	   total = 0;
+    	   for(int i = 0; i < fetches.size(); i++) {
+               total = total + fetches.get(i).getResults().size();
+           }
+    	   totalLabel.setText("Total : " + total + " Tweets");
         }
     }
     
