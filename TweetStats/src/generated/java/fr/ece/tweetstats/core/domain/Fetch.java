@@ -22,6 +22,7 @@ public class Fetch extends AbstractDomainObject implements JodaAuditable {
 	private String brand;
 	private String adjective;
 	private Long lastId;
+	private Integer fetchedFromTwitter;
 	private String uuid;
 	private DateTime createdDate;
 	private String createdBy;
@@ -78,6 +79,14 @@ public class Fetch extends AbstractDomainObject implements JodaAuditable {
 
 	public void setLastId(Long lastId) {
 		this.lastId = lastId;
+	};
+
+	public Integer getFetchedFromTwitter() {
+		return fetchedFromTwitter;
+	};
+
+	public void setFetchedFromTwitter(Integer fetchedFromTwitter) {
+		this.fetchedFromTwitter = fetchedFromTwitter;
 	};
 
 	public DateTime getCreatedDate() {

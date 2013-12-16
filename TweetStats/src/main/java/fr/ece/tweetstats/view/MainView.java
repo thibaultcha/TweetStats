@@ -60,7 +60,8 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
     private JComboBox subjectList;
     JLabel dateFetchLabel;
     JLabel totalLabel;
-    int total;
+    JLabel fromTwitterLabel;
+    JLabel fromMongoLabel;
     
     @Autowired
     private ViewController controller;
@@ -132,7 +133,7 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         //######################## FlowJListPanel ########################
         JPanel flowJListPanel = new JPanel();
         flowFetchPanel.setLayout(new FlowLayout());
-        Border jListFrame = BorderFactory.createTitledBorder("Search");
+        Border jListFrame = BorderFactory.createTitledBorder("Keywords");
         flowJListPanel.setBorder(jListFrame);
         this.setMySize(flowJListPanel, 300, 300);
         flowJListPanel.setBackground(Color.WHITE);
@@ -166,7 +167,7 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         JPanel addRemoveItemsPanel = new JPanel();
         this.setMySize(addRemoveItemsPanel, 300, 100);
         addRemoveItemsPanel.setBackground(Color.WHITE);
-        Border frame = BorderFactory.createTitledBorder("add/Remove word");
+        Border frame = BorderFactory.createTitledBorder("add/remove keywords");
         addRemoveItemsPanel.setBorder(frame);
         
         addRemoveItemsPanel.setLayout(new BoxLayout(addRemoveItemsPanel, BoxLayout.X_AXIS));
@@ -201,11 +202,19 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         informationPanel.setBackground(Color.WHITE);
         
         informationPanel.add(Box.createVerticalStrut(10));
-        totalLabel = new JLabel("Total : " + 0 + " Tweets");
+        totalLabel = new JLabel("Total: " + 0 + " tweets");
         informationPanel.add(totalLabel);
         
+        informationPanel.add(Box.createHorizontalStrut(10));
+        fromTwitterLabel = new JLabel("From Twitter: " + 0 + " tweets");
+        informationPanel.add(fromTwitterLabel);
+        
+        informationPanel.add(Box.createHorizontalStrut(10));
+        fromMongoLabel = new JLabel("From MongoDB: " + 0 + " tweets");
+        informationPanel.add(fromMongoLabel);
+        
         informationPanel.add(Box.createVerticalStrut(10));
-        dateFetchLabel = new JLabel("Date : 00/00/00");
+        dateFetchLabel = new JLabel("Date: 00/00/00");
         informationPanel.add(dateFetchLabel);
         
         flowInformationPanel.add(informationPanel);
@@ -282,7 +291,7 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         	}
 
         	List<Fetch> fetches = controller.doFetchAndSave(subjectList.getSelectedItem().toString(), arrayAdj);
-            barChart = new BarChart(fetches);
+        	barChart = new BarChart(fetches);
             barChartPanel.removeAll();
             barChartPanel.add(barChart.getChartPanel());
             barChartPanel.validate();
@@ -299,13 +308,21 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
            today.set(Calendar.HOUR_OF_DAY, 0);
            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
            String formattedDate = sdf.format(today.getTime());
-    	   dateFetchLabel.setText("Date : " + formattedDate);
-    	   
-    	   total = 0;
-    	   for(int i = 0; i < fetches.size(); i++) {
-               total = total + fetches.get(i).getResults().size();
+    	   dateFetchLabel.setText("Date: " + formattedDate);
+
+    	   int total = 0;
+    	   int fromTwitter = 0;
+    	   for(Fetch fetch : fetches) {
+               total += fetch.getResults().size();
+               if (fetch.getFetchedFromTwitter() != null) {
+            	   fromTwitter += fetch.getFetchedFromTwitter();
+            	   fetch.setFetchedFromTwitter(0);
+            	   controller.saveFetch(fetch);
+               }
            }
-    	   totalLabel.setText("Total : " + total + " Tweets");
+    	   totalLabel.setText("Total: " + total + " tweets");
+    	   fromTwitterLabel.setText("From Twitter: " + fromTwitter + " tweets");
+    	   fromMongoLabel.setText("From MongoDB: " + (total - fromTwitter) + " tweets");
         }
     }
     

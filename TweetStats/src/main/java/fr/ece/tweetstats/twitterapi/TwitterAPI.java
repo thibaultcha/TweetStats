@@ -123,6 +123,7 @@ public class TwitterAPI {
 				fetch.addResult(tweet);
 			}
 	
+			fetch.setFetchedFromTwitter(newTweets.size());
 			fetch.setLastFetchDate(new LocalDate());
 			fetch.setLastId(newTweets.get(newTweets.size() - 1).getTweetId());
 		}

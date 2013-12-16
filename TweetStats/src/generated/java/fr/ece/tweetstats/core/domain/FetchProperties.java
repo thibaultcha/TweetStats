@@ -40,6 +40,10 @@ public class FetchProperties {
 		return sharedInstance.lastId();
 	}
 
+	public static Property<Fetch> fetchedFromTwitter() {
+		return sharedInstance.fetchedFromTwitter();
+	}
+
 	public static Property<Fetch> uuid() {
 		return sharedInstance.uuid();
 	}
@@ -111,6 +115,10 @@ public class FetchProperties {
 
 		public Property<T> lastId() {
 			return new LeafProperty<T>(getParentPath(), "lastId", false, owningClass);
+		}
+
+		public Property<T> fetchedFromTwitter() {
+			return new LeafProperty<T>(getParentPath(), "fetchedFromTwitter", false, owningClass);
 		}
 
 		public Property<T> uuid() {

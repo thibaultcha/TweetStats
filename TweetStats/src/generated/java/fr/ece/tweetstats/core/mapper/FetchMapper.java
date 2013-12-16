@@ -72,6 +72,9 @@ public class FetchMapper implements DataMapper<Fetch, DBObject> {
 		if (from.containsField("lastId")) {
 			result.setLastId((Long) from.get("lastId"));
 		}
+		if (from.containsField("fetchedFromTwitter")) {
+			result.setFetchedFromTwitter((Integer) from.get("fetchedFromTwitter"));
+		}
 		if (from.containsField("createdDate")) {
 			result.setCreatedDate(JodaDateTimeMapper.getInstance().toDomain((Date) from.get("createdDate")));
 		}
@@ -122,6 +125,7 @@ public class FetchMapper implements DataMapper<Fetch, DBObject> {
 		result.put("brand", from.getBrand());
 		result.put("adjective", from.getAdjective());
 		result.put("lastId", from.getLastId());
+		result.put("fetchedFromTwitter", from.getFetchedFromTwitter());
 		result.put("uuid", from.getUuid());
 		result.put("createdDate", JodaDateTimeMapper.getInstance().toData(from.getCreatedDate()));
 		result.put("createdBy", from.getCreatedBy());

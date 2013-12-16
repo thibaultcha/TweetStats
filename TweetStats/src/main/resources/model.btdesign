@@ -13,6 +13,7 @@ Application TweetStats {
 			String brand
 			String adjective
 			Long lastId
+			Integer fetchedFromTwitter nullable
 			- List<Tweet> results
 			
 			Repository FetchRepository {

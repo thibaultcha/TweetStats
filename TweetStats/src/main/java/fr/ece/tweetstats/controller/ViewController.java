@@ -40,5 +40,9 @@ public class ViewController {
 		
 		return fetches;
 	}
+	
+	public void saveFetch(Fetch fetch) {
+		fetchService.save(fetch);
+	}
 		
 }

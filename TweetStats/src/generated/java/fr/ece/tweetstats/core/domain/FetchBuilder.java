@@ -16,6 +16,7 @@ public class FetchBuilder {
 	private String brand;
 	private String adjective;
 	private Long lastId;
+	private Integer fetchedFromTwitter;
 	private DateTime createdDate;
 	private String createdBy;
 	private DateTime lastUpdated;
@@ -50,6 +51,11 @@ public class FetchBuilder {
 
 	public FetchBuilder lastId(Long val) {
 		this.lastId = val;
+		return this;
+	}
+
+	public FetchBuilder fetchedFromTwitter(Integer val) {
+		this.fetchedFromTwitter = val;
 		return this;
 	}
 
@@ -97,6 +103,10 @@ public class FetchBuilder {
 		return lastId;
 	};
 
+	public Integer getFetchedFromTwitter() {
+		return fetchedFromTwitter;
+	};
+
 	public DateTime getCreatedDate() {
 		return createdDate;
 	};
@@ -126,6 +136,7 @@ public class FetchBuilder {
 		obj.setBrand(brand);
 		obj.setAdjective(adjective);
 		obj.setLastId(lastId);
+		obj.setFetchedFromTwitter(fetchedFromTwitter);
 		obj.setCreatedDate(createdDate);
 		obj.setCreatedBy(createdBy);
 		obj.setLastUpdated(lastUpdated);
