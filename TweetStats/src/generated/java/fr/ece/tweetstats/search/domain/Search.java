@@ -1,4 +1,4 @@
-package fr.ece.tweetstats.core.domain;
+package fr.ece.tweetstats.search.domain;
 
 import java.util.ArrayList;
 import java.util.List;

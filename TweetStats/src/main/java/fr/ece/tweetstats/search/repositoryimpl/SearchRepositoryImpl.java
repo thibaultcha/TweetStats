@@ -1,4 +1,4 @@
-package fr.ece.tweetstats.core.repositoryimpl;
+package fr.ece.tweetstats.search.repositoryimpl;
 
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package fr.ece.tweetstats.core.serviceapi;
+package fr.ece.tweetstats.search.serviceapi;
 
 /**
  * Definition of test methods to implement.

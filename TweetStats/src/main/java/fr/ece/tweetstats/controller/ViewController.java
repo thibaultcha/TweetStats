@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import fr.ece.tweetstats.core.domain.Fetch;
-import fr.ece.tweetstats.core.domain.Search;
+import fr.ece.tweetstats.search.domain.Search;
 import fr.ece.tweetstats.core.serviceapi.FetchService;
-import fr.ece.tweetstats.core.serviceapi.SearchService;
+import fr.ece.tweetstats.search.serviceapi.SearchService;
 import fr.ece.tweetstats.twitterapi.TwitterAPI;
 
 @Component
