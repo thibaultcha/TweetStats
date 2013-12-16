@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import fr.ece.tweetstats.core.domain.Fetch;
+import fr.ece.tweetstats.core.domain.Search;
 import fr.ece.tweetstats.core.serviceapi.FetchService;
+import fr.ece.tweetstats.core.serviceapi.SearchService;
 import fr.ece.tweetstats.twitterapi.TwitterAPI;
 
 @Component
@@ -15,6 +17,9 @@ public class ViewController {
 
 	@Autowired
 	private FetchService fetchService;
+	
+	@Autowired
+	private SearchService searchService;
 	
 	public ViewController() {
 
@@ -44,5 +49,13 @@ public class ViewController {
 	public void saveFetch(Fetch fetch) {
 		fetchService.save(fetch);
 	}
+	
+	public void saveSearch(Search search) {
+		searchService.save(search);
+	}
 		
+	public Search getSearchByBrand(String brand) {
+		return searchService.getSearchByBrand(brand).get(0);
+	}
+	
 }

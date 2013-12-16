@@ -29,5 +29,20 @@ Application TweetStats {
 			String message nullable
 			String location nullable
 		}
+		
+		Service SearchService {
+			getSearchByBrand delegates to SearchRepository.findByBrand;
+		}
+		
+		Entity Search {
+			scaffold
+			String brand
+			List<String> adjectives
+			
+			Repository SearchRepository {
+				List<@Search> findByBrand(String brand);
+				protected findByCondition;
+			}
+		}
 	}
 }
