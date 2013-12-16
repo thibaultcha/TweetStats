@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -38,6 +39,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.ece.tweetstats.controller.ViewController;
 import fr.ece.tweetstats.core.domain.Fetch;
+import fr.ece.tweetstats.search.domain.Search;
 
 @org.springframework.stereotype.Component
 
@@ -73,7 +75,7 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         this.setVisible(true);
     }
     
-    private void buildFrame() {
+    private void buildFrame() {    	
         //On donne une taille à notre fenetre
         this.setSize(1240,778);
         //On centre la fenêtre sur l'écran
@@ -283,7 +285,7 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
                 } 
             } 
         }
-        else if(source == fetchButton) {
+        else if(source == fetchButton) {        	
         	//update chart
         	List<String> arrayAdj = new ArrayList<String>();
         	for(int i = 0; i < itemList.size(); i++) {

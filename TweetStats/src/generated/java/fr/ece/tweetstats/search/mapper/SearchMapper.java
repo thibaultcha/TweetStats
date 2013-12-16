@@ -1,8 +1,8 @@
-package fr.ece.tweetstats.core.mapper;
+package fr.ece.tweetstats.search.mapper;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
-import fr.ece.tweetstats.core.domain.Search;
+import fr.ece.tweetstats.search.domain.Search;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;

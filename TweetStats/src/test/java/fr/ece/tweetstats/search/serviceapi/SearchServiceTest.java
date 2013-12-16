@@ -1,6 +1,6 @@
-package fr.ece.tweetstats.core.serviceapi;
+package fr.ece.tweetstats.search.serviceapi;
 
-import fr.ece.tweetstats.core.serviceapi.SearchService;
+import fr.ece.tweetstats.search.serviceapi.SearchService;
 import java.util.Set;
 import org.junit.After;
 import org.junit.Before;

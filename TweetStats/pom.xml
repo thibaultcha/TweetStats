@@ -6,6 +6,7 @@
 	<artifactId>tweetstats</artifactId>
 	<version>0.1</version>
 	<name>New Sculptor Project :: Business Tier</name>
+	<packaging>jar</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
@@ -15,13 +16,42 @@
 		<slf4j-version>1.7.5</slf4j-version>
 		<logback-version>1.0.13</logback-version>
 		<spring-version>3.2.4.RELEASE</spring-version>
-		<spring-webflow-version>2.3.2.RELEASE</spring-webflow-version>
 		<aspectj-version>1.7.2</aspectj-version>
-		<hsqldb-version>2.2.9</hsqldb-version>
 	</properties>
 
 	<build>
 		<plugins>
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>fr.ece.tweetstats.main.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.dstovall</groupId>
+                <artifactId>onejar-maven-plugin</artifactId>
+                <version>1.4.4</version>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <!-- Optional -->
+                            <onejarVersion>0.97</onejarVersion>
+                            <!-- Optional, default is false -->
+                            <attachToBuild>true</attachToBuild>
+                            <!-- Optional, default is "onejar" -->
+                            <classifier>onejar</classifier>
+                        </configuration>
+                        <goals>
+                            <goal>one-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 			<plugin>
 				<groupId>org.sculptorgenerator</groupId>
 				<artifactId>sculptor-maven-plugin</artifactId>
@@ -255,6 +285,11 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.4</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring-version}</version>
@@ -264,14 +299,6 @@
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.4</version>
-			<!-- Add scope test when running with a persistent database (mysql etc) -->
-			<!-- Add scope test when deployed in jboss -->
-			<!-- <scope>test</scope> -->
-		</dependency>
-		<dependency>
-			<groupId>org.hsqldb</groupId>
-			<artifactId>hsqldb</artifactId>
-			<version>${hsqldb-version}</version>
 			<!-- Add scope test when running with a persistent database (mysql etc) -->
 			<!-- Add scope test when deployed in jboss -->
 			<!-- <scope>test</scope> -->
@@ -390,11 +417,6 @@
 								<groupId>org.datanucleus</groupId>
 								<artifactId>datanucleus-api-jpa</artifactId>
 								<version>${datanucleus-jpa-version}</version>
-							</dependency>
-							<dependency>
-								<groupId>org.hsqldb</groupId>
-								<artifactId>hsqldb</artifactId>
-								<version>${hsqldb-version}</version>
 							</dependency>
 						</dependencies>
 						<executions>
@@ -591,6 +613,11 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</pluginRepository>
+		<pluginRepository>
+            <id>onejar-maven-plugin.googlecode.com</id>
+            <url>http://onejar-maven-plugin.googlecode.com/svn/mavenrepo</url>
+        </pluginRepository>
 	</pluginRepositories>
+
 
 </project>

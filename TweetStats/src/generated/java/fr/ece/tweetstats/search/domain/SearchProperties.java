@@ -1,13 +1,13 @@
-package fr.ece.tweetstats.core.domain;
+package fr.ece.tweetstats.search.domain;
 
-import fr.ece.tweetstats.core.domain.Search;
+import fr.ece.tweetstats.search.domain.Search;
 import org.sculptor.framework.domain.LeafProperty;
 import org.sculptor.framework.domain.PropertiesCollection;
 import org.sculptor.framework.domain.Property;
 
 /**
  * This generated interface defines property names for all attributes and associatations in
- * {@link fr.ece.tweetstats.core.domain.Search}.
+ * {@link fr.ece.tweetstats.search.domain.Search}.
  * <p>
  * These properties are useful when building criteria with {@link org.sculptor.framework.accessapi.ConditionalCriteriaBuilder},
  * which can be used with findByCondition Repository operation.
@@ -56,7 +56,7 @@ public class SearchProperties {
 	}
 
 	/**
-	 * This class is used for references to {@link fr.ece.tweetstats.core.domain.Search}, i.e. nested property.
+	 * This class is used for references to {@link fr.ece.tweetstats.search.domain.Search}, i.e. nested property.
 	 */
 	public static class SearchProperty<T> extends SearchPropertiesImpl<T> implements Property<T> {
 		private static final long serialVersionUID = 1L;

@@ -1,4 +1,4 @@
-package fr.ece.tweetstats.core.exception;
+package fr.ece.tweetstats.search.exception;
 
 import org.sculptor.framework.errorhandling.ApplicationException;
 

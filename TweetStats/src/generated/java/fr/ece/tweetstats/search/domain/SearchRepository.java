@@ -1,7 +1,7 @@
-package fr.ece.tweetstats.core.domain;
+package fr.ece.tweetstats.search.domain;
 
-import fr.ece.tweetstats.core.domain.Search;
-import fr.ece.tweetstats.core.exception.SearchNotFoundException;
+import fr.ece.tweetstats.search.domain.Search;
+import fr.ece.tweetstats.search.exception.SearchNotFoundException;
 import java.util.List;
 
 /**

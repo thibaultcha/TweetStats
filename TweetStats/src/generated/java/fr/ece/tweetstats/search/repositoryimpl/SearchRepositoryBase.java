@@ -1,12 +1,12 @@
-package fr.ece.tweetstats.core.repositoryimpl;
+package fr.ece.tweetstats.search.repositoryimpl;
 
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
-import fr.ece.tweetstats.core.domain.Search;
-import fr.ece.tweetstats.core.domain.SearchProperties;
-import fr.ece.tweetstats.core.domain.SearchRepository;
-import fr.ece.tweetstats.core.exception.SearchNotFoundException;
-import fr.ece.tweetstats.core.mapper.SearchMapper;
+import fr.ece.tweetstats.search.domain.Search;
+import fr.ece.tweetstats.search.domain.SearchProperties;
+import fr.ece.tweetstats.search.domain.SearchRepository;
+import fr.ece.tweetstats.search.exception.SearchNotFoundException;
+import fr.ece.tweetstats.search.mapper.SearchMapper;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import org.sculptor.framework.accessapi.ConditionalCriteria;

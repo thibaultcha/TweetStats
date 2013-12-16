@@ -1,6 +1,6 @@
-package fr.ece.tweetstats.core.domain;
+package fr.ece.tweetstats.search.domain;
 
-import fr.ece.tweetstats.core.domain.Search;
+import fr.ece.tweetstats.search.domain.Search;
 import java.util.ArrayList;
 import java.util.List;
 import org.joda.time.DateTime;
