@@ -9,7 +9,10 @@ import fr.ece.tweetstats.view.MainView;
 
 @Component
 public class Main {
-    
+    /**
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
         context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
 

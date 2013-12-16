@@ -1,6 +1,7 @@
 
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>fr.ece</groupId>
 	<artifactId>tweetstats</artifactId>
@@ -10,7 +11,7 @@
 	<properties>
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
 		<sculptor-version>3.0.0</sculptor-version>
-	    <hibernate-validator-version>5.0.1.Final</hibernate-validator-version>
+		<hibernate-validator-version>5.0.1.Final</hibernate-validator-version>
 		<ehcache-version>2.4.7</ehcache-version>
 		<slf4j-version>1.7.5</slf4j-version>
 		<logback-version>1.0.13</logback-version>
@@ -23,99 +24,116 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.sculptorgenerator</groupId>
-				<artifactId>sculptor-maven-plugin</artifactId>
-				<version>${sculptor-version}</version>
+				<artifactId>maven-javadoc-plugin</artifactId>
 				<configuration>
-					<verbose>false</verbose>
+					<bootclasspath>${sun.boot.class.path}</bootclasspath>
+					<doclet>com.google.doclava.Doclava</doclet>
+					<useStandardDocletOptions>false</useStandardDocletOptions>
+					<docletArtifact>
+						<groupId>com.google.doclava</groupId>
+						<artifactId>doclava</artifactId>
+						<version>1.0.5</version>
+					</docletArtifact>
+					<additionalparam>
+						-hdf project.name "${project.name}"
+						-d ${project.build.directory}/apidocs
+						-quiet
+					</additionalparam>
 				</configuration>
-				<executions>
-					<execution>
-						<id>cleanup</id>
-						<goals>
-							<goal>clean</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>code-generation</id>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>image-generation</id>
-						<goals>
-							<goal>generate-images</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.4</version>
-				<executions>
-					<execution>
-						<id>${project.artifactId}-client</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-						<phase>package</phase>
-						<configuration>
-							<classifier>client</classifier>
-							<includes>
-								<include>**/serviceapi/*.class</include>
-								<include>**/domain/*.class</include>
-								<include>**/exception/*.class</include>
-								<include>**/*.btdesign</include>
-								<include>**/sculptor-generator.properties</include>
-							</includes>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+				<plugin>
+					<groupId>org.sculptorgenerator</groupId>
+					<artifactId>sculptor-maven-plugin</artifactId>
+					<version>${sculptor-version}</version>
+					<configuration>
+						<verbose>false</verbose>
+					</configuration>
+					<executions>
+						<execution>
+							<id>cleanup</id>
+							<goals>
+								<goal>clean</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>code-generation</id>
+							<goals>
+								<goal>generate</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>image-generation</id>
+							<goals>
+								<goal>generate-images</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.1</version>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>2.4</version>
+					<executions>
+						<execution>
+							<id>${project.artifactId}-client</id>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+							<phase>package</phase>
+							<configuration>
+								<classifier>client</classifier>
+								<includes>
+									<include>**/serviceapi/*.class</include>
+									<include>**/domain/*.class</include>
+									<include>**/exception/*.class</include>
+									<include>**/*.btdesign</include>
+									<include>**/sculptor-generator.properties</include>
+								</includes>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
 		</plugins>
 	</build>
 
 	<dependencies>
-	      <dependency>
-			  <groupId>it.tidalwave.geo</groupId>
-			  <artifactId>it-tidalwave-geo-viewer-spi-jxmapviewer</artifactId>
-			  <version>1.0.32</version>
-		  </dependency>
-		  <dependency>
+		<dependency>
+			<groupId>it.tidalwave.geo</groupId>
+			<artifactId>it-tidalwave-geo-viewer-spi-jxmapviewer</artifactId>
+			<version>1.0.32</version>
+		</dependency>
+		<dependency>
 			<groupId>org.swinglabs</groupId>
 			<artifactId>swingx-ws</artifactId>
 			<version>1.0</version>
-		 </dependency>
-		 <dependency>
+		</dependency>
+		<dependency>
 			<groupId>org.swinglabs</groupId>
 			<artifactId>swingx</artifactId>
 			<version>1.6.1</version>
-		 </dependency>
-		 <dependency>
+		</dependency>
+		<dependency>
 			<groupId>org.jdesktop</groupId>
 			<artifactId>swing-worker</artifactId>
 			<version>1.1</version>
-		 </dependency>
-	     <dependency>
-           <groupId>org.twitter4j</groupId>
-           <artifactId>twitter4j-core</artifactId>
-           <version>3.0.5</version>
-      	 </dependency>
+		</dependency>
 		<dependency>
-    		<groupId>org.sculptorgenerator</groupId>
-    		<artifactId>sculptor-framework-mongodb</artifactId>
-    		<version>${sculptor-version}</version>
+			<groupId>org.twitter4j</groupId>
+			<artifactId>twitter4j-core</artifactId>
+			<version>3.0.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.sculptorgenerator</groupId>
+			<artifactId>sculptor-framework-mongodb</artifactId>
+			<version>${sculptor-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -485,15 +503,15 @@
 								</configuration>
 							</execution>
 						</executions>
-				        <dependencies>
-				            <dependency>
-				                <groupId>org.eclipse.persistence</groupId>
-				                <artifactId>eclipselink</artifactId>
-				                <version>${eclipselink-version}</version>
-				            </dependency>
-				        </dependencies>
+						<dependencies>
+							<dependency>
+								<groupId>org.eclipse.persistence</groupId>
+								<artifactId>eclipselink</artifactId>
+								<version>${eclipselink-version}</version>
+							</dependency>
+						</dependencies>
 					</plugin>
-    			</plugins>
+				</plugins>
 			</build>
 			<dependencies>
 				<dependency>
