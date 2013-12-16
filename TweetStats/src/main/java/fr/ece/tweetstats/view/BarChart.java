@@ -41,10 +41,8 @@ public class BarChart {
     }
     
     private CategoryDataset updateDataset(List<Fetch> fetches) {
-        // create the dataset...
         final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-        // column keys...
         for(int i = 0; i < fetches.size(); i++) {
             dataset.addValue(fetches.get(i).getResults().size(), "Words", fetches.get(i).getAdjective());
         }

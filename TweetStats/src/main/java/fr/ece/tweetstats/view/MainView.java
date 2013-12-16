@@ -7,10 +7,13 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -38,9 +41,10 @@ import fr.ece.tweetstats.core.domain.Fetch;
 
 @org.springframework.stereotype.Component
 
-public class MainView extends JFrame implements ActionListener, ListSelectionListener {
+public class MainView extends JFrame implements ActionListener, ListSelectionListener, KeyListener {
 	private static final long serialVersionUID = 1L;
 	private JTextField addItemTextField;
+	private JTextField addSubjectField;
     private JButton addItemButton;
     private JButton removeItemButton;
     private JButton fetchButton;
@@ -91,9 +95,9 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         //######################## FlowFetchPanel ########################
         JPanel flowFetchPanel = new JPanel();
         flowFetchPanel.setLayout(new FlowLayout());
-        Border fetchFrame = BorderFactory.createTitledBorder("Fetch area");
+        Border fetchFrame = BorderFactory.createTitledBorder("Fetch");
         flowFetchPanel.setBorder(fetchFrame);
-        this.setMySize(flowFetchPanel, 300, 120);
+        this.setMySize(flowFetchPanel, 300, 180);
         flowFetchPanel.setBackground(Color.WHITE);
         
         //######################## FetchPanel ########################
@@ -112,7 +116,14 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         subjectList = new JComboBox();
         subjectList.addItem("RATP");
         subjectList.addItem("AlloResto");
+        subjectList.addItem("M6");
         fetchPanel.add(subjectList);
+        
+        fetchPanel.add(Box.createVerticalStrut(10));
+        addSubjectField = new JTextField();
+        addSubjectField.addKeyListener(this);
+        this.setMySize(addSubjectField, 200, 40);
+        fetchPanel.add(addSubjectField);
         
         flowFetchPanel.add(fetchPanel);
         
@@ -121,7 +132,7 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         //######################## FlowJListPanel ########################
         JPanel flowJListPanel = new JPanel();
         flowFetchPanel.setLayout(new FlowLayout());
-        Border jListFrame = BorderFactory.createTitledBorder("Items area");
+        Border jListFrame = BorderFactory.createTitledBorder("Search");
         flowJListPanel.setBorder(jListFrame);
         this.setMySize(flowJListPanel, 300, 300);
         flowJListPanel.setBackground(Color.WHITE);
@@ -132,13 +143,11 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         JListPanel.setBackground(Color.WHITE);
         
         itemList = new DefaultListModel();
-
-        itemList.addElement("putain");
-        itemList.addElement("fuck");
-        itemList.addElement("insupportable");
-        itemList.addElement("intolérable");
-        itemList.addElement("énervant");
-        itemList.addElement("merde");
+        itemList.addElement("grève");
+        itemList.addElement("retard");
+        itemList.addElement("RER C");
+        itemList.addElement("problèmes");
+        itemList.addElement("génial");
         
         elementJList = new JList(itemList);
         elementJList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -157,27 +166,23 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         JPanel addRemoveItemsPanel = new JPanel();
         this.setMySize(addRemoveItemsPanel, 300, 100);
         addRemoveItemsPanel.setBackground(Color.WHITE);
-        Border frame = BorderFactory.createTitledBorder("add/Remove");
+        Border frame = BorderFactory.createTitledBorder("add/Remove word");
         addRemoveItemsPanel.setBorder(frame);
         
         addRemoveItemsPanel.setLayout(new BoxLayout(addRemoveItemsPanel, BoxLayout.X_AXIS));
-        //buttonPanel.setBackground(Color.WHITE);
         addItemButton = new JButton("+");
         addItemButton.addActionListener(this);
-        addItemButton.setPreferredSize(new Dimension(40,40));
+        this.setMySize(addItemButton, 40, 40);
+        
         removeItemButton = new JButton("-");
         removeItemButton.addActionListener(this);
-        removeItemButton.setPreferredSize(new Dimension(40,40));
+        this.setMySize(removeItemButton, 40, 40);
         
         addRemoveItemsPanel.add(removeItemButton);
         addRemoveItemsPanel.add(addItemButton);
         
         addItemTextField = new JTextField();
-        //on lui donne une dimension
         this.setMySize(addItemTextField, 200, 40);
-        //on peut rentrer jusqu'a 15 caracteres
-        addItemTextField.setColumns(15);
-        //on ajoute les differents elements
         addRemoveItemsPanel.add(Box.createHorizontalStrut(10));
         addRemoveItemsPanel.add(addItemTextField);
         
@@ -186,7 +191,7 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         //######################## FlowInformationPanel ########################
         JPanel flowInformationPanel = new JPanel();
         flowInformationPanel.setLayout(new FlowLayout());
-        Border informationFrame = BorderFactory.createTitledBorder("informations");
+        Border informationFrame = BorderFactory.createTitledBorder("Fetch informations");
         flowInformationPanel.setBorder(informationFrame);
         flowInformationPanel.setBackground(Color.WHITE);
         
@@ -244,7 +249,6 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //on recupere la source du clic
         Object source = (JButton)(e.getSource());
         
         count = 0;
@@ -290,7 +294,7 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
             lineChartPanel.validate();
             lineChartPanel.repaint();
             
-           //update information
+           //update informations
            Calendar today = Calendar.getInstance();
            today.set(Calendar.HOUR_OF_DAY, 0);
            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
@@ -308,4 +312,27 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
     @Override
     public void valueChanged(ListSelectionEvent e) {
     }
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+        	if(addSubjectField.getText() != "") {
+        		subjectList.addItem(addSubjectField.getText());
+        		addSubjectField.setText("");
+        		subjectList.getModel().setSelectedItem(subjectList.getItemAt(subjectList.getItemCount() - 1));
+        	}
+        }
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 }

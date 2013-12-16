@@ -83,7 +83,6 @@ public class LineChart {
   			}
   		}
       	
-      	
       	return groupedByDate;
   	}
 
