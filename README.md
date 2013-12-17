@@ -5,6 +5,20 @@ Assignment for the Software Quality course at ECE Paris 2013 with Lom Hillah.
 
 ## Instructions for installation
 
+Requires MongoDB. By default, TweetStats will look for the MongoDB server at `localhost:27017`, but you can override it by editing `spring.properties` and recompile the project:
+
+```
+mongodb.dbname=TweetStats
+mongodb.url1=localhost:27017
+```
+
+If MongoDB is up and running:
+
+1. Open the `.dmg`
+2. Drag and drop the application to your `Applications` folder
+3. Open the application (make sure MongoDB is running)
+
+That's it.
 
 
 ## Instructions for build and development
@@ -38,3 +52,18 @@ You can now compile the project under Eclipse.
     - `mvn com.zenjava:javafx-maven-plugin:2.0:fix-classpath`
 
 To compile the project as a native installer, run the `build.sh` script.
+
+Be careful: in order to successfully run the unit tests while maven will compile the project, you need to start your MongoDB server.
+
+## Instructions to generate the Data Model source code
+
+This part of the project is handled by [Sculptor](sculptorgenerator.org).
+
+- Make any change in `model.btdesign` (optional)
+
+- Run the following command at the root of the project:
+
+```
+mvn generate-sources -Dsculptor.generator.force=true
+```
+
