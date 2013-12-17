@@ -22,36 +22,14 @@
 	<build>
 		<plugins>
 			<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>fr.ece.tweetstats.main.Main</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.dstovall</groupId>
-                <artifactId>onejar-maven-plugin</artifactId>
-                <version>1.4.4</version>
-                <executions>
-                    <execution>
-                        <configuration>
-                            <!-- Optional -->
-                            <onejarVersion>0.97</onejarVersion>
-                            <!-- Optional, default is false -->
-                            <attachToBuild>true</attachToBuild>
-                            <!-- Optional, default is "onejar" -->
-                            <classifier>onejar</classifier>
-                        </configuration>
-                        <goals>
-                            <goal>one-jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+			    <groupId>com.zenjava</groupId>
+			    <artifactId>javafx-maven-plugin</artifactId>
+			    <version>2.0</version>
+			    <configuration>
+			    	<vendor>fr.ece.tweestats</vendor>
+			        <mainClass>fr.ece.tweetstats.main.Main</mainClass>
+			    </configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.sculptorgenerator</groupId>
 				<artifactId>sculptor-maven-plugin</artifactId>
@@ -268,11 +246,6 @@
 			<artifactId>dbunit</artifactId>
 			<version>2.4.9</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
