@@ -272,8 +272,11 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
 		List<Search> searches = controller.getAllSearches();
 		
 		for(int i = 0; i < searches.size(); i++) {
+			System.out.println(searches.get(i).getBrand());
 			brandList.addItem(searches.get(i).getBrand());
 		}	
+		
+		System.out.println((String)brandList.getItemAt(0));
 		this.setPresetForBrand((String)brandList.getItemAt(0));
 	}
 
