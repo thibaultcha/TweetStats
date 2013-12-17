@@ -42,6 +42,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import fr.ece.tweetstats.controller.ViewController;
 import fr.ece.tweetstats.core.domain.Fetch;
 import fr.ece.tweetstats.search.domain.Search;
+import fr.ece.tweetstats.search.serviceapi.SearchService;
 
 @org.springframework.stereotype.Component
 
@@ -66,12 +67,16 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
     private JLabel totalLabel;
     private JLabel fromTwitterLabel;
     private JLabel fromMongoLabel;
+    private Boolean bool;
+    private String[] brand;
     
     @Autowired
     private ViewController controller;
     
     public MainView() {
         super("Tweetstats");
+        bool = false;
+        brand = new String[2];
         
         this.buildFrame();
         this.setVisible(true);
@@ -301,6 +306,28 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
 	            } 
 	        }
 	        else if(source == fetchButton) {
+	        	int count = 0;
+	        	
+	        	//save search
+	        	Search search = controller.getSearchByBrand(brandList.getSelectedItem().toString());
+    			List<String> adjList = search.getAdjectives();
+    			for(int j = 0; j < itemList.size(); j++) {
+    				count = 0;
+    				for(int i = 0; i < adjList.size(); i++) {
+    					if(itemList.getElementAt(j).toString().equals(adjList.get(i))) {
+    						count++;
+    					}
+    				}
+    				if(count == 0) {
+    					adjList.add(itemList.getElementAt(j).toString());
+    					//System.out.println(itemList.getElementAt(j).toString());
+    				}
+    			}
+    			
+    			//condition pour save
+    			search.setAdjectives(adjList);
+    			controller.saveSearch(search);
+        		
 	        	//update chart
 	        	List<String> arrayAdj = new ArrayList<String>();
 	        	for(int i = 0; i < itemList.size(); i++) {
@@ -345,7 +372,17 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         else if(e.getSource() instanceof JComboBox) {
         	source = (JComboBox)(e.getSource());
         	if(source == brandList) {
-        		this.setPresetForBrand(brandList.getSelectedItem().toString());
+        		brand[1] = brandList.getSelectedItem().toString();
+        		
+        		if(!bool) {
+        			brand[0] = brandList.getSelectedItem().toString();
+        			bool = true;
+        		}
+        		
+        		if(brand[0] != brand[1] && bool) {
+        			this.setPresetForBrand(brandList.getSelectedItem().toString());
+        			brand[0]=brand[1];
+        		}
         	}
         }
     }
