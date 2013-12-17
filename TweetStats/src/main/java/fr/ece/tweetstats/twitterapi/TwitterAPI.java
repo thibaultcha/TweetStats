@@ -55,9 +55,9 @@ public class TwitterAPI {
 			do {
 				result = twitter.search(query);
 				for (Status status : result.getTweets()) {
-					String location = "";
+					String location = null;
 					if (status.getGeoLocation() != null) {
-						location = status.getGeoLocation().toString();
+						location = status.getGeoLocation().getLatitude() + "," + status.getGeoLocation().getLongitude();
 					}
 					tweetResults.add(new Tweet(new Long(status.getId()), 
 											   new LocalDate(status.getCreatedAt().getTime()),

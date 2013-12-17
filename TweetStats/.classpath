@@ -7,10 +7,11 @@
 	<classpathentry including="**/*.java" kind="src" path="src/generated/java"/>
 	<classpathentry excluding="**/*.java" kind="src" path="src/main/resources"/>
 	<classpathentry excluding="**/*.java" kind="src" path="src/generated/resources"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="M2_REPO/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar"/>
 	<classpathentry kind="var" path="M2_REPO/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.jar"/>
 	<classpathentry kind="var" path="M2_REPO/javax/transaction/javax.transaction-api/1.2/javax.transaction-api-1.2.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="M2_REPO/org/twitter4j/twitter4j-core/3.0.5/twitter4j-core-3.0.5.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/sculptorgenerator/sculptor-framework-mongodb/3.0.0/sculptor-framework-mongodb-3.0.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/sculptorgenerator/sculptor-framework-main/3.0.0/sculptor-framework-main-3.0.0.jar"/>

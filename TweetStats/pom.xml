@@ -3,8 +3,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>fr.ece</groupId>
-	<artifactId>tweetstats</artifactId>
-	<version>0.1</version>
+	<artifactId>Tweetstats</artifactId>
+	<version>1.0</version>
 	<name>New Sculptor Project :: Business Tier</name>
 	<packaging>jar</packaging>
 
@@ -22,36 +22,14 @@
 	<build>
 		<plugins>
 			<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>fr.ece.tweetstats.main.Main</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.dstovall</groupId>
-                <artifactId>onejar-maven-plugin</artifactId>
-                <version>1.4.4</version>
-                <executions>
-                    <execution>
-                        <configuration>
-                            <!-- Optional -->
-                            <onejarVersion>0.97</onejarVersion>
-                            <!-- Optional, default is false -->
-                            <attachToBuild>true</attachToBuild>
-                            <!-- Optional, default is "onejar" -->
-                            <classifier>onejar</classifier>
-                        </configuration>
-                        <goals>
-                            <goal>one-jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+			    <groupId>com.zenjava</groupId>
+			    <artifactId>javafx-maven-plugin</artifactId>
+			    <version>2.0</version>
+			    <configuration>
+			    	<vendor>fr.ece.tweestats</vendor>
+			        <mainClass>fr.ece.tweetstats.main.Main</mainClass>
+			    </configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.sculptorgenerator</groupId>
 				<artifactId>sculptor-maven-plugin</artifactId>
@@ -117,26 +95,11 @@
 	</build>
 
 	<dependencies>
-	      <dependency>
-			  <groupId>it.tidalwave.geo</groupId>
-			  <artifactId>it-tidalwave-geo-viewer-spi-jxmapviewer</artifactId>
-			  <version>1.0.32</version>
-		  </dependency>
-		  <dependency>
-			<groupId>org.swinglabs</groupId>
-			<artifactId>swingx-ws</artifactId>
-			<version>1.0</version>
-		 </dependency>
-		 <dependency>
-			<groupId>org.swinglabs</groupId>
-			<artifactId>swingx</artifactId>
-			<version>1.6.1</version>
-		 </dependency>
-		 <dependency>
-			<groupId>org.jdesktop</groupId>
-			<artifactId>swing-worker</artifactId>
-			<version>1.1</version>
-		 </dependency>
+		<dependency>
+		    <groupId>com.oracle</groupId>
+		    <artifactId>javafx</artifactId>
+		    <version>2.2.45</version>
+		</dependency>
 	     <dependency>
            <groupId>org.twitter4j</groupId>
            <artifactId>twitter4j-core</artifactId>
@@ -285,23 +248,10 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.4</version>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring-version}</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-dbcp</groupId>
-			<artifactId>commons-dbcp</artifactId>
-			<version>1.4</version>
-			<!-- Add scope test when running with a persistent database (mysql etc) -->
-			<!-- Add scope test when deployed in jboss -->
-			<!-- <scope>test</scope> -->
 		</dependency>
 		<dependency>
 			<groupId>jfree</groupId>
@@ -309,285 +259,6 @@
 			<version>1.0.9</version>
 		</dependency>
 	</dependencies>
-
-	<!-- Profiles -->
-
-	<profiles>
-
-		<!-- HIBERNATE -->
-
-		<profile>
-			<id>hibernate</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-				<property>
-					<name>jpa.provider</name>
-					<value>hibernate</value>
-				</property>
-			</activation>
-			<properties>
-				<hibernate-version>4.2.2.Final</hibernate-version>
-			</properties>
-			<build>
-			</build>
-			<dependencies>
-				<dependency>
-					<groupId>org.hibernate</groupId>
-					<artifactId>hibernate-entitymanager</artifactId>
-					<version>${hibernate-version}</version>
-					<!-- Add scope provided when deployed in jboss -->
-					<!-- <scope>provided</scope> -->
-				</dependency>
-				<dependency>
-					<groupId>org.hibernate</groupId>
-					<artifactId>hibernate-ehcache</artifactId>
-					<version>${hibernate-version}</version>
-				</dependency>
-				<dependency>
-					<groupId>org.jadira.usertype</groupId>
-					<artifactId>usertype.core</artifactId>
-					<version>3.0.0.GA</version>
-					<exclusions>
-						<exclusion>
-							<groupId>org.joda</groupId>
-							<artifactId>joda-money</artifactId>
-						</exclusion>
-						<exclusion>
-							<groupId>org.hibernate</groupId>
-							<artifactId>hibernate-entitymanager</artifactId>
-						</exclusion>
-						<exclusion>
-							<groupId>org.slf4j</groupId>
-							<artifactId>slf4j-api</artifactId>
-						</exclusion>
-					</exclusions>
-				</dependency>
-			</dependencies>
-		</profile>
-
-		<!-- DATANUCLEUS -->
-
-		<profile>
-			<id>datanucleus</id>
-			<activation>
-				<property>
-					<name>jpa.provider</name>
-					<value>datanucleus</value>
-				</property>
-			</activation>
-			<properties>
-				<datanucleus-version>3.2.4</datanucleus-version>
-				<datanucleus-rdbms-version>3.2.3</datanucleus-rdbms-version>
-				<datanucleus-plugin-version>3.1.3</datanucleus-plugin-version>
-				<datanucleus-enhancer-version>3.1.1</datanucleus-enhancer-version>
-				<datanucleus-jpa-version>3.2.3</datanucleus-jpa-version>
-				<datanucleus-jodatime-version>3.2.1</datanucleus-jodatime-version>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.datanucleus</groupId>
-						<artifactId>maven-datanucleus-plugin</artifactId>
-						<version>${datanucleus-plugin-version}</version>
-						<configuration>
-							<metadataIncludes>**/domain/*.class</metadataIncludes>
-							<metadataExcludes>**/domain/*Propert*.class,**/domain/*Repository.class</metadataExcludes>
-							<api>JPA</api>
-							<verbose>false</verbose>
-							<ddlFile>${basedir}/src/test/generated/resources/dbunit/ddl.sql</ddlFile>
-							<completeDdl>true</completeDdl>
-						</configuration>
-						<dependencies>
-							<dependency>
-								<groupId>org.datanucleus</groupId>
-								<artifactId>datanucleus-core</artifactId>
-								<version>${datanucleus-version}</version>
-							</dependency>
-							<dependency>
-								<groupId>org.datanucleus</groupId>
-								<artifactId>datanucleus-enhancer</artifactId>
-								<version>${datanucleus-enhancer-version}</version>
-							</dependency>
-							<dependency>
-								<groupId>org.datanucleus</groupId>
-								<artifactId>datanucleus-rdbms</artifactId>
-								<version>${datanucleus-rdbms-version}</version>
-							</dependency>
-							<dependency>
-								<groupId>org.datanucleus</groupId>
-								<artifactId>datanucleus-api-jpa</artifactId>
-								<version>${datanucleus-jpa-version}</version>
-							</dependency>
-						</dependencies>
-						<executions>
-							<execution>
-								<id>enhance</id>
-								<phase>process-classes</phase>
-								<goals>
-									<goal>enhance</goal>
-								</goals>
-							</execution>
-							<execution>
-								<id>test-schema-create</id>
-								<phase>process-test-classes</phase>
-								<goals>
-									<goal>schema-create</goal>
-								</goals>
-								<configuration>
-									<props>${basedir}/src/test/generated/resources/datanucleus-test.properties</props>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-			<dependencies>
-				<dependency>
-					<groupId>org.datanucleus</groupId>
-					<artifactId>datanucleus-core</artifactId>
-					<version>${datanucleus-version}</version>
-				</dependency>
-				<dependency>
-					<groupId>org.datanucleus</groupId>
-					<artifactId>datanucleus-api-jpa</artifactId>
-					<version>${datanucleus-jpa-version}</version>
-				</dependency>
-				<dependency>
-					<groupId>org.datanucleus</groupId>
-					<artifactId>datanucleus-rdbms</artifactId>
-					<version>${datanucleus-rdbms-version}</version>
-				</dependency>
-				<dependency>
-					<groupId>org.datanucleus</groupId>
-					<artifactId>datanucleus-jodatime</artifactId>
-					<version>${datanucleus-jodatime-version}</version>
-				</dependency>
-				<dependency>
-					<groupId>javax.jdo</groupId>
-					<artifactId>jdo-api</artifactId>
-					<version>3.0.1</version>
-				</dependency>
-				<dependency>
-					<groupId>org.apache.geronimo.specs</groupId>
-					<artifactId>geronimo-jpa_2.0_spec</artifactId>
-					<version>1.1</version>
-				</dependency>
-			</dependencies>
-		</profile>
-
-		<!-- ECLIPSELINK -->
-
-		<profile>
-			<id>eclipselink</id>
-			<activation>
-				<property>
-					<name>jpa.provider</name>
-					<value>eclipselink</value>
-				</property>
-			</activation>
-			<properties>
-				<eclipselink-version>2.5.0</eclipselink-version>
-				<eclipselink-api-version>2.1.0</eclipselink-api-version>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>eclipselink-staticweave-maven-plugin</artifactId>
-						<groupId>au.com.alderaan</groupId>
-						<version>1.0.4</version>
-						<executions>
-							<execution>
-								<goals>
-									<goal>weave</goal>
-								</goals>
-								<phase>process-classes</phase>
-								<configuration>
-									<logLevel>ALL</logLevel>
-									<includeProjectClasspath>true</includeProjectClasspath>
-								</configuration>
-							</execution>
-						</executions>
-				        <dependencies>
-				            <dependency>
-				                <groupId>org.eclipse.persistence</groupId>
-				                <artifactId>eclipselink</artifactId>
-				                <version>${eclipselink-version}</version>
-				            </dependency>
-				        </dependencies>
-					</plugin>
-    			</plugins>
-			</build>
-			<dependencies>
-				<dependency>
-					<groupId>org.eclipse.persistence</groupId>
-					<artifactId>javax.persistence</artifactId>
-					<version>${eclipselink-api-version}</version>
-				</dependency>
-				<dependency>
-					<groupId>org.eclipse.persistence</groupId>
-					<artifactId>eclipselink</artifactId>
-					<version>${eclipselink-version}</version>
-				</dependency>
-			</dependencies>
-		</profile>
-
-		<!-- OPENJPA -->
-
-		<profile>
-			<id>openjpa</id>
-			<activation>
-				<property>
-					<name>jpa.provider</name>
-					<value>openjpa</value>
-				</property>
-			</activation>
-			<properties>
-				<openjpa-version>2.2.2</openjpa-version>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.openjpa</groupId>
-						<artifactId>openjpa-maven-plugin</artifactId>
-						<version>${openjpa-version}</version>
-						<configuration>
-							<includes>**/domain/*.class</includes>
-							<excludes>**/domain/*Propert*.class,**/domain/*Repository.class</excludes>
-						</configuration>
-						<executions>
-							<execution>
-								<id>enhancer</id>
-								<phase>process-classes</phase>
-								<goals>
-									<goal>enhance</goal>
-								</goals>
-							</execution>
-						</executions>
-						<dependencies>
-							<dependency>
-								<groupId>org.apache.openjpa</groupId>
-								<artifactId>openjpa</artifactId>
-								<version>${openjpa-version}</version>
-							</dependency>
-							<dependency>
-								<groupId>ch.qos.logback</groupId>
-								<artifactId>logback-classic</artifactId>
-								<version>${logback-version}</version>
-							</dependency>
-						</dependencies>
-					</plugin>
-
-				</plugins>
-			</build>
-			<dependencies>
-				<dependency>
-					<groupId>org.apache.openjpa</groupId>
-					<artifactId>openjpa</artifactId>
-					<version>${openjpa-version}</version>
-				</dependency>
-			</dependencies>
-		</profile>
-	</profiles>
 
 	<repositories>
 		<repository>
@@ -613,10 +284,6 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</pluginRepository>
-		<pluginRepository>
-            <id>onejar-maven-plugin.googlecode.com</id>
-            <url>http://onejar-maven-plugin.googlecode.com/svn/mavenrepo</url>
-        </pluginRepository>
 	</pluginRepositories>
 
 
