@@ -38,14 +38,13 @@ public class Main {
 	    put("M6",        Arrays.asList("patissier", "talent", "talents"));
 	}};
 	
-	
     private void start(String[] args) {
-    	for (Entry<String, List<String>> entry : DEFAULT_SEARCHES.entrySet()) {
+    	/*for (Entry<String, List<String>> entry : DEFAULT_SEARCHES.entrySet()) {
     		Search search = new Search();
     		search.setAdjectives(entry.getValue());
     		search.setBrand(entry.getKey());
     		searchService.save(search);
-    	}
+    	}*/
     }
 
 }

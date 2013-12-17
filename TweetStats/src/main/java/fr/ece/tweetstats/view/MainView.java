@@ -11,7 +11,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -39,10 +38,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.ece.tweetstats.controller.ViewController;
 import fr.ece.tweetstats.core.domain.Fetch;
-import fr.ece.tweetstats.search.domain.Search;
+import fr.ece.tweetstats.core.domain.Tweet;
+
+import fr.ece.tweetstats.view.MapView;
 
 @org.springframework.stereotype.Component
-
 public class MainView extends JFrame implements ActionListener, ListSelectionListener, KeyListener {
 	private static final long serialVersionUID = 1L;
 	private JTextField addItemTextField;
@@ -52,8 +52,6 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
     private JButton fetchButton;
     private DefaultListModel itemList;
     private JList elementJList;
-    private int count;
-    private int loopVar;
     private BarChart barChart;
     private LineChart lineChart;
     private JPanel barChartPanel;
@@ -64,6 +62,7 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
     JLabel totalLabel;
     JLabel fromTwitterLabel;
     JLabel fromMongoLabel;
+    private MapView mapView;
     
     @Autowired
     private ViewController controller;
@@ -242,9 +241,10 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         tabbedPane.addTab("Line Chart", lineChartPanel);
         
       //######################## MapChartPanel ########################
+        mapView = new MapView();
         mapChartPanel = new JPanel(new FlowLayout());
+        mapChartPanel.add(mapView);
         mapChartPanel.setBackground(Color.WHITE);
-        //JXMapViewer mapViewer;
         
         tabbedPane.addTab("Map Chart", mapChartPanel);
         
@@ -261,11 +261,10 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = (JButton)(e.getSource());
-        
-        count = 0;
-        loopVar = 0;
-        
+
         if(source == addItemButton) {
+        	int count = 0;
+            int loopVar = 0;
             while(loopVar < itemList.size()) {
                 if(addItemTextField.getText().equals(itemList.get(loopVar).toString())) {
                     System.out.println(itemList.get(loopVar).toString());
@@ -285,14 +284,15 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
                 } 
             } 
         }
-        else if(source == fetchButton) {        	
-        	//update chart
+        else if(source == fetchButton) {
         	List<String> arrayAdj = new ArrayList<String>();
         	for(int i = 0; i < itemList.size(); i++) {
         		arrayAdj.add(itemList.get(i).toString());
         	}
 
         	List<Fetch> fetches = controller.doFetchAndSave(subjectList.getSelectedItem().toString(), arrayAdj);
+        	
+        	// update charts
         	barChart = new BarChart(fetches);
             barChartPanel.removeAll();
             barChartPanel.add(barChart.getChartPanel());
@@ -305,7 +305,7 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
             lineChartPanel.validate();
             lineChartPanel.repaint();
             
-           //update informations
+           // update informations
            Calendar today = Calendar.getInstance();
            today.set(Calendar.HOUR_OF_DAY, 0);
            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
@@ -321,10 +321,18 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
             	   fetch.setFetchedFromTwitter(0);
             	   controller.saveFetch(fetch);
                }
+               // update map chart
+               mapView.performJS("clear();");
+               for (Tweet tweet : fetch.getResults()) {
+            	   if (tweet.getLocation() != null) {
+            		   mapView.performJS("newMarker(" + tweet.getLocation() + ");");
+            	   }
+               }
            }
     	   totalLabel.setText("Total: " + total + " tweets");
     	   fromTwitterLabel.setText("From Twitter: " + fromTwitter + " tweets");
     	   fromMongoLabel.setText("From MongoDB: " + (total - fromTwitter) + " tweets");
+    	  
         }
     }
     
