@@ -42,7 +42,6 @@ public class Main {
     	for (Entry<String, List<String>> entry : DEFAULT_SEARCHES.entrySet()) {
     		List<Search> searches = searchService.getSearchByBrand(entry.getKey());
     		if(searches.size() == 0) {
-    			System.out.println("test");
     			Search search = new Search();
     			search.setAdjectives(entry.getValue());
         		search.setBrand(entry.getKey());

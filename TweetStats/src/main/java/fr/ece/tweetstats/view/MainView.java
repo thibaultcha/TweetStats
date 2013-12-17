@@ -243,7 +243,6 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
       //######################## MapChartPanel ########################
         mapChartPanel = new JPanel(new FlowLayout());
         mapChartPanel.setBackground(Color.WHITE);
-        //JXMapViewer mapViewer;
         
         tabbedPane.addTab("Map Chart", mapChartPanel);
         
@@ -259,7 +258,6 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
     
     private void setPresetForBrand(String brand) {
 		itemList.removeAllElements();
-		System.out.println(brand + "\n" + controller.getSearchByBrand(brand));
     	if(controller.getSearchByBrand(brand) != null) {
 	    	Search search = controller.getSearchByBrand(brand);
 	    	for(int i = 0; i < search.getAdjectives().size(); i++) {
@@ -272,12 +270,22 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
 		List<Search> searches = controller.getAllSearches();
 		
 		for(int i = 0; i < searches.size(); i++) {
-			System.out.println(searches.get(i).getBrand());
 			brandList.addItem(searches.get(i).getBrand());
 		}	
 		
-		System.out.println((String)brandList.getItemAt(0));
 		this.setPresetForBrand((String)brandList.getItemAt(0));
+	}
+	
+	private void savePreset() {
+		//save search
+    	Search search = controller.getSearchByBrand(brandList.getSelectedItem().toString());
+		List<String> adjList = new ArrayList<String>();
+		for(int i = 0; i < itemList.size(); i++) {
+			adjList.add(itemList.getElementAt(i).toString());
+		}
+
+		search.setAdjectives(adjList);
+		controller.saveSearch(search);
 	}
 
     @Override
@@ -291,13 +299,14 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
 	        if(source == addItemButton) {
 	            while(loopVar < itemList.size()) {
 	                if(addItemTextField.getText().equals(itemList.get(loopVar).toString())) {
-	                    System.out.println(itemList.get(loopVar).toString());
 	                    count++;
 	                }
 	                loopVar++;
 	            }
-	            if(count == 0 && !addItemTextField.getText().equals(""))
+	            if(count == 0 && !addItemTextField.getText().equals("")) {
 	                itemList.addElement(addItemTextField.getText());
+	            	this.savePreset();
+	            }
 	            addItemTextField.setText("");
 	        }
 	        else if(source == removeItemButton) {
@@ -306,73 +315,51 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
 	                for (int i = selectedIndices.length-1; i >=0; i--) {
 	                    itemList.removeElementAt(selectedIndices[i]);
 	                } 
+	                this.savePreset();
 	            } 
 	        }
 	        else if(source == fetchButton) {
-	        	int count = 0;
-	        	boolean save = false;
-	        	
-	        	//save search
-	        	Search search = controller.getSearchByBrand(brandList.getSelectedItem().toString());
-    			List<String> adjList = search.getAdjectives();
-    			for(int j = 0; j < itemList.size(); j++) {
-    				count = 0;
-    				for(int i = 0; i < adjList.size(); i++) {
-    					if(itemList.getElementAt(j).toString().equals(adjList.get(i))) {
-    						count++;
-    					}
-    				}
-    				if(count == 0) {
-    					adjList.add(itemList.getElementAt(j).toString());
-    					bool = true;
-    					//System.out.println(itemList.getElementAt(j).toString());
-    				}
-    			}
-    			
-    			if(bool) {
-	    			search.setAdjectives(adjList);
-	    			controller.saveSearch(search);
-    			}
-        		
 	        	//update chart
-	        	List<String> arrayAdj = new ArrayList<String>();
-	        	for(int i = 0; i < itemList.size(); i++) {
-	        		arrayAdj.add(itemList.get(i).toString());
-	        	}
-	
-	        	List<Fetch> fetches = controller.doFetchAndSave(brandList.getSelectedItem().toString(), arrayAdj);
-	        	barChart = new BarChart(fetches);
-	            barChartPanel.removeAll();
-	            barChartPanel.add(barChart.getChartPanel());
-	            barChartPanel.validate();
-	            barChartPanel.repaint();
-	            
-	            lineChart = new LineChart(fetches);
-	            lineChartPanel.removeAll();
-	            lineChartPanel.add(lineChart.getChartPanel());
-	            lineChartPanel.validate();
-	            lineChartPanel.repaint();
-	            
-	           //update informations
-	           Calendar today = Calendar.getInstance();
-	           today.set(Calendar.HOUR_OF_DAY, 0);
-	           SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-	           String formattedDate = sdf.format(today.getTime());
-	    	   dateFetchLabel.setText("Date: " + formattedDate);
-	
-	    	   int total = 0;
-	    	   int fromTwitter = 0;
-	    	   for(Fetch fetch : fetches) {
-	               total += fetch.getResults().size();
-	               if (fetch.getFetchedFromTwitter() != null) {
-	            	   fromTwitter += fetch.getFetchedFromTwitter();
-	            	   fetch.setFetchedFromTwitter(0);
-	            	   controller.saveFetch(fetch);
-	               }
-	           }
-	    	   totalLabel.setText("Total: " + total + " tweets");
-	    	   fromTwitterLabel.setText("From Twitter: " + fromTwitter + " tweets");
-	    	   fromMongoLabel.setText("From MongoDB: " + (total - fromTwitter) + " tweets");
+	        	if(itemList.size() > 0) {
+		        	List<String> arrayAdj = new ArrayList<String>();
+		        	for(int i = 0; i < itemList.size(); i++) {
+		        		arrayAdj.add(itemList.get(i).toString());
+		        	}
+		        	
+		        	List<Fetch> fetches = controller.doFetchAndSave(brandList.getSelectedItem().toString(), arrayAdj);
+		        	barChart = new BarChart(fetches);
+		            barChartPanel.removeAll();
+		            barChartPanel.add(barChart.getChartPanel());
+		            barChartPanel.validate();
+		            barChartPanel.repaint();
+		            
+		            lineChart = new LineChart(fetches);
+		            lineChartPanel.removeAll();
+		            lineChartPanel.add(lineChart.getChartPanel());
+		            lineChartPanel.validate();
+		            lineChartPanel.repaint();
+		            
+		           //update informations
+		           Calendar today = Calendar.getInstance();
+		           today.set(Calendar.HOUR_OF_DAY, 0);
+		           SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		           String formattedDate = sdf.format(today.getTime());
+		    	   dateFetchLabel.setText("Date: " + formattedDate);
+		
+		    	   int total = 0;
+		    	   int fromTwitter = 0;
+		    	   for(Fetch fetch : fetches) {
+		               total += fetch.getResults().size();
+		               if (fetch.getFetchedFromTwitter() != null) {
+		            	   fromTwitter += fetch.getFetchedFromTwitter();
+		            	   fetch.setFetchedFromTwitter(0);
+		            	   controller.saveFetch(fetch);
+		               }
+		           }
+		    	   totalLabel.setText("Total: " + total + " tweets");
+		    	   fromTwitterLabel.setText("From Twitter: " + fromTwitter + " tweets");
+		    	   fromMongoLabel.setText("From MongoDB: " + (total - fromTwitter) + " tweets");
+		        }
 	        }
         }
         else if(e.getSource() instanceof JComboBox) {
@@ -403,8 +390,10 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         	if(addSubjectField.getText() != "") {
         		brandList.addItem(addSubjectField.getText());
         		addSubjectField.setText("");
-        		System.out.println(brandList.getItemCount() - 1);
         		brandList.getModel().setSelectedItem(brandList.getItemAt(brandList.getItemCount() - 1));
+        		Search search = new Search();
+        		search.setBrand((String)brandList.getItemAt(brandList.getItemCount() - 1));
+        		controller.saveSearch(search);
         	}
         }
 	}

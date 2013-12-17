@@ -55,7 +55,12 @@ public class ViewController {
 	}
 		
 	public Search getSearchByBrand(String brand) {
-		return searchService.getSearchByBrand(brand).get(0);
+		Search search = null;
+		List<Search> searches = searchService.getSearchByBrand(brand);
+		if (searches.size() > 0) {
+			search = searches.get(0);
+		}
+		return search;
 	}
 	
 	public List<Search> getAllSearches() {
