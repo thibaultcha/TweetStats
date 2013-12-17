@@ -30,8 +30,7 @@ Application TweetStats {
 			String location nullable
 		}
 		
-	}
-	
+	}	
 	Module search {
 		Service SearchService {
 			getSearchByBrand delegates to SearchRepository.findByBrand;
