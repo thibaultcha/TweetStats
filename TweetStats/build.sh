@@ -8,4 +8,4 @@ rm ./src/test/java/fr/ece/tweetstats/core/serviceapi/*.java
 #mvn package #-DskipTests=true
 
 #mvn jfx:jar
-mvn jfx:native
+mvn jfx:native -DskipTests=true
