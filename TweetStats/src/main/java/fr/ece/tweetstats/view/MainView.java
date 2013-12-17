@@ -307,6 +307,7 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
 	        }
 	        else if(source == fetchButton) {
 	        	int count = 0;
+	        	boolean save = false;
 	        	
 	        	//save search
 	        	Search search = controller.getSearchByBrand(brandList.getSelectedItem().toString());
@@ -320,13 +321,15 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
     				}
     				if(count == 0) {
     					adjList.add(itemList.getElementAt(j).toString());
+    					bool = true;
     					//System.out.println(itemList.getElementAt(j).toString());
     				}
     			}
     			
-    			//condition pour save
-    			search.setAdjectives(adjList);
-    			controller.saveSearch(search);
+    			if(bool) {
+	    			search.setAdjectives(adjList);
+	    			controller.saveSearch(search);
+    			}
         		
 	        	//update chart
 	        	List<String> arrayAdj = new ArrayList<String>();
