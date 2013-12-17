@@ -60,7 +60,7 @@ public class MapView extends JPanel {
 	}
 	
 	public void performJS(final String js) {
-		Platform.runLater(new Runnable() { 
+		Platform.runLater(new Runnable() {
             @Override
             public void run() {
             	webEngine.executeScript(js);

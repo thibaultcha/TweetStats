@@ -11,9 +11,18 @@ Requires JDK 1.7.0 update 9 or higher and Maven 3.
 
     - Read the version number of javafx in `${JDK7_HOME}/jre/lib/javafx.properties`
 
-    - Run: `mvn install:install-file -Dfile=${JDK7_HOME}/jre/lib/jfxrt.jar -DgroupId=com.oracle -DartifactId=javafx -Dpackaging=jar -Dversion=${JAVAFX_VERSION}`
+    - Run:
+
+```
+mvn install:install-file \
+  -Dfile=${JDK7_HOME}/jre/lib/jfxrt.jar \
+  -DgroupId=com.oracle \
+  -DartifactId=javafx \
+  -Dpackaging=jar \
+  -Dversion=${JAVAFX_VERSION}
+```
     
-    Check the javafx version number in `pom.xml` (current is `2.2.45`).
+   Check the javafx version number in `pom.xml` (current is `2.2.45`).
 
 3. Install [JavaFX Maven Plugin](http://zenjava.com/javafx/maven/):
 
