@@ -2,6 +2,11 @@
 
 Assignment for the Software Quality course at ECE Paris 2013 with Lom Hillah.
 
+
+## Instructions for installation
+
+
+
 ## Instructions for build and development
 
 Requires JDK 1.7.0 update 9 or higher and Maven 3.
@@ -22,14 +27,14 @@ mvn install:install-file \
   -Dversion=${JAVAFX_VERSION}
 ```
     
-   Check the javafx version number in `pom.xml` (current is `2.2.45`).
-
-3. Install [JavaFX Maven Plugin](http://zenjava.com/javafx/maven/):
-
-    - `mvn com.zenjava:javafx-maven-plugin:2.0:fix-classpath`
+   Check the javafx version number in `pom.xml` (current is `2.2.45`) and update if needed.
     
 You can now compile the project under Eclipse.
 
 ### Native installer
+
+1. Install [JavaFX Maven Plugin](http://zenjava.com/javafx/maven/):
+
+    - `mvn com.zenjava:javafx-maven-plugin:2.0:fix-classpath`
 
 To compile the project as a native installer, run the `build.sh` script.

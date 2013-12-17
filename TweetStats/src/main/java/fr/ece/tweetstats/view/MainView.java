@@ -14,8 +14,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -42,7 +40,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import fr.ece.tweetstats.controller.ViewController;
 import fr.ece.tweetstats.core.domain.Fetch;
 import fr.ece.tweetstats.search.domain.Search;
-import fr.ece.tweetstats.search.serviceapi.SearchService;
 import fr.ece.tweetstats.core.domain.Tweet;
 import fr.ece.tweetstats.view.MapView;
 
