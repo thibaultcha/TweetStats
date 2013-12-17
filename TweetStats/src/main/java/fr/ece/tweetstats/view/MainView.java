@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -43,7 +44,6 @@ import fr.ece.tweetstats.core.domain.Fetch;
 import fr.ece.tweetstats.search.domain.Search;
 import fr.ece.tweetstats.search.serviceapi.SearchService;
 import fr.ece.tweetstats.core.domain.Tweet;
-
 import fr.ece.tweetstats.view.MapView;
 
 @org.springframework.stereotype.Component
@@ -231,12 +231,22 @@ public class MainView extends JFrame implements ActionListener, ListSelectionLis
         //######################## BarChartPanel ########################
         barChartPanel = new JPanel(new FlowLayout());
         barChartPanel.setBackground(Color.WHITE);
-        
+        JLabel textBarChart = new JLabel("No tweets fetched");
+        textBarChart.setAlignmentX(Component.CENTER_ALIGNMENT);
+        textBarChart.setAlignmentY(Component.CENTER_ALIGNMENT);
+        Font police = new Font("Arial", Font.BOLD, 20);
+        textBarChart.setFont(police);
+        barChartPanel.add(textBarChart);
         tabbedPane.addTab("Bar Chart", barChartPanel);
         
         //######################## LineChartPanel ########################
         lineChartPanel = new JPanel(new FlowLayout());
         lineChartPanel.setBackground(Color.WHITE);
+        JLabel textLineChart = new JLabel("No tweets fetched");
+        textLineChart.setAlignmentX(Component.CENTER_ALIGNMENT);
+        textLineChart.setAlignmentY(Component.CENTER_ALIGNMENT);
+        textLineChart.setFont(police);
+        lineChartPanel.add(textLineChart);
         
         tabbedPane.addTab("Line Chart", lineChartPanel);
         

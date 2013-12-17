@@ -1,6 +1,10 @@
 package fr.ece.tweetstats.view;
 
+
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -29,8 +33,10 @@ public class MapView extends JPanel {
 	public MapView() {
 		jfxPanel = new JFXPanel();
 	    createScene();
-		setLayout(new BorderLayout());
-		add(jfxPanel, BorderLayout.CENTER);
+	    
+	    setLayout(new FlowLayout());
+	    setBackground(Color.WHITE);
+		add(jfxPanel);
 	}
 
 	private void createScene() {
@@ -39,10 +45,11 @@ public class MapView extends JPanel {
 			public void run() {
 				stage = new Stage();
 				Group root = new Group();
-				Scene scene = new Scene(root, 900, 1100);
+				Scene scene = new Scene(root, 900, 680);
 				stage.setScene(scene);
 				// Set up the embedded browser:
 				browser = new WebView();
+				browser.setMinSize(900, 680);
 				webEngine = browser.getEngine();
 				webEngine.load(getClass().getResource("/index.html").toString());
 				ObservableList<Node> children = root.getChildren();
