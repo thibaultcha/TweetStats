@@ -32,20 +32,22 @@ public class Main {
     private SearchService searchService;
     
 	private static ApplicationContext context;
-	static final Map<String , List<String>> DEFAULT_SEARCHES = new HashMap<String, List<String>>() {{
+	public static final Map<String , List<String>> DEFAULT_SEARCHES = new HashMap<String, List<String>>() {{
 	    put("RATP",      Arrays.asList("grève", "retard", "RER", "ligne"));
 	    put("Alloresto", Arrays.asList("livreur", "retard", "plat", "cher"));
 	    put("M6",        Arrays.asList("patissier", "talent", "talents"));
 	}};
 	
-	
     private void start(String[] args) {
     	for (Entry<String, List<String>> entry : DEFAULT_SEARCHES.entrySet()) {
-    		Search search = new Search();
-    		search.setAdjectives(entry.getValue());
-    		search.setBrand(entry.getKey());
-    		searchService.save(search);
+    		List<Search> searches = searchService.getSearchByBrand(entry.getKey());
+    		if (searches.size() > 0) {
+    			Search search = new Search();
+    			search.setAdjectives(entry.getValue());
+        		search.setBrand(entry.getKey());
+        		searchService.save(search);
+    		}
     	}
+    	view.populateComboBox();
     }
-
 }

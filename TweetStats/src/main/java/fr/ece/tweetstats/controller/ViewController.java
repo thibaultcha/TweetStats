@@ -58,4 +58,7 @@ public class ViewController {
 		return searchService.getSearchByBrand(brand).get(0);
 	}
 	
+	public List<Search> getAllSearches() {
+		return searchService.findAll();
+	}
 }

@@ -16,6 +16,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYSplineRenderer;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
@@ -46,6 +47,8 @@ public class LineChart {
         DateAxis range = new DateAxis("Date");
         range.setDateFormatOverride(new SimpleDateFormat("dd/MM/yyyy"));
         plot.setDomainAxis(range);
+        
+        chart.getXYPlot().setRenderer(new XYSplineRenderer());
         
         chart.setBackgroundPaint(Color.WHITE);
         lineChartPanel = new ChartPanel(chart);
