@@ -1,7 +1,11 @@
 # TweetStats
 
-Assignment for the Software Quality course at ECE Paris 2013 with Lom Hillah.
+Assignment for the Software Quality course at ECE Paris 2013 with Lom Hillah. Show trends of keywords related to a given brand.
 
+![screenshot](screens/demo.png)
+
+- [Requirements Specifications](https://github.com/thibaultCha/TweetStats/wiki/Requirements-Specifications)
+- [Design Specifications]()
 
 ## Instructions for installation
 
@@ -20,6 +24,7 @@ If MongoDB is up and running:
 
 That's it.
 
+:warning: `Unable to invoke main method` means that your MongoDB server is NOT running.
 
 ## Instructions for build and development
 
