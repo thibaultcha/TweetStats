@@ -1,11 +1,17 @@
 # TweetStats
 
-Assignment for the Software Quality course at ECE Paris 2013 with Lom Hillah. Show trends of keywords related to a given brand.
+Assignment for the Software Quality course at ECE Paris 2013 with Lom Hillah. Show trends of keywords related to a given brand. Especially useful to measure the impact of a social media campaign.
 
 ![screenshot](screens/demo.png)
 
 - [Requirements Specifications](https://github.com/thibaultCha/TweetStats/wiki/Requirements-Specifications)
 - [Design Specifications]()
+
+## Structure
+
+- `TweetStats/`: source code
+- `app/`: native installer
+- `screens/`: screenshots for the wiki
 
 ## Instructions for installation
 
@@ -16,15 +22,16 @@ mongodb.dbname=TweetStats
 mongodb.url1=localhost:27017
 ```
 
-If MongoDB is up and running:
-
 1. Open the `.dmg`
 2. Drag and drop the application to your `Applications` folder
+
+    **If MongoDB is up and running:**
+
 3. Open the application (make sure MongoDB is running)
 
 That's it.
 
-:warning: `Unable to invoke main method` means that your MongoDB server is NOT running.
+:warning: Error: `Unable to invoke main method` means that your MongoDB server is NOT running. Please start your server and relaunch the app.
 
 ## Instructions for build and development
 
