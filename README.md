@@ -19,7 +19,7 @@ Assignment for the Software Quality course at ECE Paris 2013 with Lom Hillah. Sh
 - `app/`: native installer
 - `screens/`: screenshots for the wiki
 
-## Instructions for installation
+## Instructions for usage
 
 Requires MongoDB. By default, TweetStats will look for the MongoDB server at `localhost:27017`, but you can override it by editing `spring.properties` and recompile the project:
 
