@@ -1,5 +1,11 @@
 # TweetStats
 
+```
+Guillaume Naudin
+Natanel Partouche
+Thibault Charbonnier
+```
+
 Assignment for the Software Quality course at ECE Paris 2013 with Lom Hillah. Show trends of keywords related to a given brand. Especially useful to measure the impact of a social media campaign.
 
 ![screenshot](screens/demo.png)
