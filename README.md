@@ -1,17 +1,19 @@
 # TweetStats
 
+Assignment for the **Software Quality** course at ECE Paris 2013 with Lom Hillah. Show trends of keywords related to a given brand.
+
 ```
 Guillaume Naudin
 Natanel Partouche
 Thibault Charbonnier
 ```
 
-Assignment for the Software Quality course at ECE Paris 2013 with Lom Hillah. Show trends of keywords related to a given brand. Especially useful to measure the impact of a social media campaign.
+Requirements were to use a NoSQL database.
 
 ![screenshot](screens/demo.png)
 
 - [Requirements Specifications](https://github.com/thibaultCha/TweetStats/wiki/Requirements-Specifications)
-- [Design Specifications]()
+- [Design Specifications](https://github.com/thibaultCha/TweetStats/wiki/Design-Specifications)
 
 ## Structure
 
@@ -84,4 +86,3 @@ This part of the project is handled by [Sculptor](sculptorgenerator.org).
 ```
 mvn generate-sources -Dsculptor.generator.force=true
 ```
-
